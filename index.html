@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQIRAD - Perundingan Kewangan Profesional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --secondary-color: #e74c3c;
+            --light-color: #ffffff;
+            --gray-color: #f5f5f5;
+            --text-color: #333333;
+            --border-color: #dddddd;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--light-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo-text span {
+            color: var(--accent-color);
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .contact-icon {
+            color: var(--accent-color);
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #1da851;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .hero h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-color);
+            margin-bottom: 25px;
+        }
+
+        .highlight-box {
+            background-color: var(--gray-color);
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .highlight-box p {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        /* Main Content */
+        .content-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        .info-box {
+            background-color: var(--gray-color);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .benefits-list, .eligibility-list {
+            list-style-type: none;
+        }
+
+        .benefits-list li, .eligibility-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .benefits-list li:last-child, .eligibility-list li:last-child {
+            border-bottom: none;
+        }
+
+        .benefit-icon, .eligibility-icon {
+            color: var(--accent-color);
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .warning-box {
+            background-color: #fff8e1;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        /* Form Styles */
+        .application-form {
+            background-color: var(--gray-color);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+
+        .submit-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: #f9f9f9;
+            padding: 60px 0;
+        }
+
+        .testimonial-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .testimonial-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .testimonial-placeholder {
+            text-align: center;
+            padding: 40px;
+            background-color: var(--gray-color);
+            border-radius: 8px;
+            color: #777;
+        }
+
+        /* Map */
+        .map-container {
+            margin: 40px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-section p, .footer-section li {
+            margin-bottom: 10px;
+            color: #ddd;
+        }
+
+        .footer-section ul {
+            list-style-type: none;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 30px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .contact-info {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 26px;
+            }
+            
+            .application-form {
+                padding: 25px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .testimonial-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .content-section {
+                padding: 40px 0;
+            }
+            
+            .testimonial-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-img {
+                height: 40px;
+            }
+            
+            .logo-text {
+                font-size: 18px;
+            }
+        }
+
+        /* Age highlight */
+        .age-highlight {
+            background-color: #e3f2fd;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: 600;
+            margin: 5px 0;
+            color: var(--primary-color);
+        }
+
+        .success-rate {
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        /* Slider for testimonials */
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slider-slide {
+            min-width: 100%;
+            padding: 0 15px;
+        }
+
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .slider-dot.active {
+            background-color: var(--accent-color);
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            z-index: 10;
+        }
+
+        .slider-btn.prev {
+            left: 10px;
+        }
+
+        .slider-btn.next {
+            right: 10px;
+        }
+
+        .slider-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://i.ibb.co/1fv1Q1gt/Gemini-Generated-Image-cuor7cuor7cuor7c.png" alt="MQIRAD Logo" class="logo-img">
+                <div class="logo-text">MQIRAD <span></div>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone contact-icon"></i>
+                    <span>+6010-658 3343</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <span>officialmqirad@gmail.com</span>
+                </div>
+                <a href="https://wa.me/60106583343" class="whatsapp-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp Kami
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>PERUNDINGAN KEWANGAN <span>PROFESIONAL</span></h1>
+            <p class="hero-subtitle">Kami Menawarkan Perkhidmatan Penyelesaian Menggunakan Caruman KWSP Anda</p>
+            
+            <div class="highlight-box">
+                <p><i class="fas fa-check-circle" style="color: #4CAF50; margin-right: 10px;"></i> Tanpa Bayaran Pendahuluan</p>
+                <p><i class="fas fa-check-circle" style="color: #4CAF50; margin-right: 10px;"></i> Tanpa Bebanan Komitmen Bulanan</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container content-section">
+        <!-- Company Info -->
+        <section>
+            <h2 class="section-title">Tentang Kami</h2>
+            <div class="info-box">
+                <h3>MILANO ENTERPRISE SDN BHD (207404-D)</h3>
+                <p>ATAU LEBIH DIKENALI SEBAGAI <strong>MQIRAD</strong> ADALAH SEBUAH SYARIKAT KREDIT KOMUNITI PEMBERI PINJAMAN WANG BERLESEN YANG BERDAFTAR DI BAWAH AKTA PEMBERI PINJAM WANG 1951.</p>
+                <p>KAMI MEMBERIKAN KEMUDAHAN PEMBIAYAAN KHAS UNTUK SEMUA UMUR</p>
+                <div style="margin: 15px 0;">
+                    <span class="age-highlight">SEMUA UMUR LAYAK MEMOHON</span>
+                </div>
+                <p>YANG MEMERLUKAN TUNAI SEGERA. PERMOHONAN BOLEH DIBUAT <strong>SECARA ATAS TALIAN</strong>.</p>
+            </div>
+            
+            <div class="warning-box">
+                <h3><i class="fas fa-exclamation-triangle" style="color: #ff9800; margin-right: 10px;"></i> ADAKAH MQIRAD BERKAITAN DENGAN PIHAK KWSP?</h3>
+                <p><strong>TIDAK.</strong> MQIRAD BUKAN WAKIL ATAU EJEN DARI PIHAK KWSP</p>
+            </div>
+        </section>
+
+        <!-- Benefits -->
+        <section style="margin-top: 60px;">
+            <h2 class="section-title">Manfaat Pinjaman KWSP</h2>
+            <div class="info-box">
+                <ul class="benefits-list">
+                    <li>
+                        <i class="fas fa-calendar-check benefit-icon"></i>
+                        <div>
+                            <strong>TIADA BAYARAN BULANAN SEHINGGA 24 BULAN</strong>
+                            <p>Tempoh moratorium tanpa bayaran bulanan untuk kemudahan anda</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-money-bill-wave benefit-icon"></i>
+                        <div>
+                            <strong>TIADA BAYARAN PENDAHULUAN / TIADA CAJ TERSEMBUNYI</strong>
+                            <p>Semua caj adalah telus dan tiada bayaran pendahuluan diperlukan</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-file-contract benefit-icon"></i>
+                        <div>
+                            <strong>MEMPUNYAI SURAT PERJANJIAN YANG JELAS DAN SAH</strong>
+                            <p>Dokumen perjanjian yang sah di sisi undang-undang</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-shield-alt benefit-icon"></i>
+                        <div>
+                            <strong>SEMUA DATA PERIBADI ANDA TERLINDUNG DENGAN SELAMAT</strong>
+                            <p>Privasi dan keselamatan data anda adalah keutamaan kami</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-chart-line benefit-icon"></i>
+                        <div>
+                            <strong>KADAR KELULUSAN <span class="success-rate">99.9% LULUS</span></strong>
+                            <p>Hampir semua permohonan diluluskan dengan syarat yang mudah</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Repayment Method -->
+        <section style="margin-top: 60px;">
+            <h2 class="section-title">Kaedah Pembayaran Semula</h2>
+            <div class="info-box">
+                <p>BAYARAN SEMULA OLEH PEMINJAM PERLU DIJELASKAN KEPADA PIHAK SYARIKAT SETELAH PENGELUARAN KWSP DITERIMA.</p>
+                <p style="margin-top: 15px; font-style: italic;">Proses pembayaran yang mudah dan fleksibel mengikut kemampuan anda.</p>
+            </div>
+        </section>
+
+        <!-- Application Form -->
+        <section style="margin-top: 60px;">
+            <h2 class="section-title">Permohonan Atas Talian</h2>
+            <div class="info-box">
+                <p style="margin-bottom: 20px; font-size: 18px;"><strong>DOKUMEN RINGKAS, KELULUSAN SEGERA, PROSES CEPAT, DAN MUDAH</strong></p>
+                
+                <h3 style="margin-top: 25px;">Kelayakan Permohonan:</h3>
+                <ul class="eligibility-list">
+                    <li>
+                        <i class="fas fa-user-check eligibility-icon"></i>
+                        <div>
+                            <strong>SEMUA UMUR LAYAK MEMOHON</strong>
+                            <p>Tiada had umur untuk permohonan pinjaman</p>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-piggy-bank eligibility-icon"></i>
+                        <div>
+                            <strong>MEMPUNYAI SIMPANAN KWSP AKAUN 1 ATAU AKAUN EMAS (SIMPANAN MINIMUM RM30K)</strong>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-list-alt eligibility-icon"></i>
+                        <div>
+                            <strong>BLACKLIST / CTOSS / BANKRUPTCY / AKPK LAYAK</strong>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-briefcase eligibility-icon"></i>
+                        <div>
+                            <strong>BEKERJA / TIDAK BEKERJA LAYAK</strong>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt eligibility-icon"></i>
+                        <div>
+                            <strong>SELURUH SEMENANJUNG MALAYSIA (KECUALI SABAH, SARAWAK)</strong>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="application-form">
+                <h3 style="text-align: center; margin-bottom: 30px; color: var(--primary-color);">Borang Permohonan Pinjaman</h3>
+                <form id="loanApplicationForm">
+                    <div class="form-group">
+                        <label for="nama">NAMA:</label>
+                        <input type="text" id="nama" class="form-control" placeholder="Masukkan nama penuh anda" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefon">NO TELEFON:</label>
+                        <input type="tel" id="telefon" class="form-control" placeholder="Contoh: 012-345 6789" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="negeri">NEGERI:</label>
+                        <select id="negeri" class="form-control" required>
+                            <option value="">Sila pilih negeri</option>
+                            <option value="Johor">Johor</option>
+                            <option value="Kedah">Kedah</option>
+                            <option value="Kelantan">Kelantan</option>
+                            <option value="Melaka">Melaka</option>
+                            <option value="Negeri Sembilan">Negeri Sembilan</option>
+                            <option value="Pahang">Pahang</option>
+                            <option value="Perak">Perak</option>
+                            <option value="Perlis">Perlis</option>
+                            <option value="Pulau Pinang">Pulau Pinang</option>
+                            <option value="Selangor">Selangor</option>
+                            <option value="Terengganu">Terengganu</option>
+                            <option value="Wilayah Persekutuan">Wilayah Persekutuan</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tarikhLahir">TARIKH LAHIR:</label>
+                        <input type="date" id="tarikhLahir" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="simpananKWSP">JUMLAH SIMPANAN KWSP (RM):</label>
+                        <input type="number" id="simpananKWSP" class="form-control" placeholder="Contoh: 35000" min="30000" required>
+                        <small style="color: #666;">* Simpanan minimum RM30,000 diperlukan</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> HANTAR PERMOHONAN KE WHATSAPP
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <div class="container">
+                <h2 class="section-title">Feedback Pelanggan</h2>
+                
+                <!-- Testimonial Slider -->
+                <div class="testimonial-slider">
+                    <div class="slider-container" id="sliderContainer">
+                        <!-- Slide 1 -->
+                        <div class="slider-slide">
+                            <div class="testimonial-container">
+                                <div class="testimonial-card">
+                                    <img src="https://i.ibb.co/8DY4v2dz/Whats-App-Image-2025-12-16-at-16-00-08.jpg" alt="Testimoni Pelanggan 1" class="testimonial-img">
+                                    <p class="testimonial-text">"Sangat berpuas hati dengan perkhidmatan MQIRAD. Proses cepat dan staff sangat membantu."</p>
+                                    <p class="testimonial-author">- Encik Ahmad, 54 tahun</p>
+                                </div>
+                                
+                                <div class="testimonial-card">
+                                    <img src="https://i.ibb.co/twvmFskH/Whats-App-Image-2025-12-16-at-15-58-50-1.jpg" alt="Testimoni Pelanggan 2" class="testimonial-img">
+                                    <p class="testimonial-text">"Tiada bayaran pendahuluan dan tiada komitmen bulanan. Sangat sesuai untuk keperluan tunai segera."</p>
+                                    <p class="testimonial-author">- Puan Siti, 59 tahun</p>
+                                </div>
+                                
+                                <div class="testimonial-card">
+                                    <img src="https://i.ibb.co/TBFjKH5H/Whats-App-Image-2025-12-16-at-15-58-50.jpg" alt="Testimoni Pelanggan 3" class="testimonial-img">
+                                    <p class="testimonial-text">"Walaupun dalam senarai bankrap, permohonan saya masih diluluskan. Terima kasih MQIRAD!"</p>
+                                    <p class="testimonial-author">- Encik Raju, 55 tahun</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 2 -->
+                        <div class="slider-slide">
+                            <div class="testimonial-container">
+                                <div class="testimonial-card">
+                                    <img src="https://i.ibb.co/WWmGtQTM/Whats-App-Image-2025-12-16-at-15-58-49.jpg" alt="Testimoni Pelanggan 4" class="testimonial-img">
+                                    <p class="testimonial-text">"Dana diterima dalam masa 3 hari selepas permohonan. Sangat efisien dan profesional."</p>
+                                    <p class="testimonial-author">- Encik Lim, 58 tahun</p>
+                                </div>
+                                
+                                <div class="testimonial-card">
+                                    <img src="https://i.ibb.co/kWkcB2d/Whats-App-Image-2025-12-16-at-15-57-19.jpg" alt="Testimoni Pelanggan 5" class="testimonial-img">
+                                    <p class="testimonial-text">"Perkhidmatan yang sangat membantu untuk keperluan perubatan keluarga saya."</p>
+                                    <p class="testimonial-author">- Puan Maimunah, 60 tahun</p>
+                                </div>
+                                
+                                <div class="testimonial-card">
+                                    <img src="https://i.ibb.co/JRddVGzv/Whats-App-Image-2025-12-16-at-15-57-18.jpg" alt="Testimoni Pelanggan 6" class="testimonial-img">
+                                    <p class="testimonial-text">"Syarikat yang amanah dan boleh dipercayai. Semua proses dijelaskan dengan terperinci."</p>
+                                    <p class="testimonial-author">- Encik Kumar, 53 tahun</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 3 -->
+                        <div class="slider-slide">
+                            <div class="testimonial-container">
+                                <div class="testimonial-card">
+                                    <img src="https://i.ibb.co/JRJPDRhN/Whats-App-Image-2025-12-16-at-15-57-17-2.jpg" alt="Testimoni Pelanggan 7" class="testimonial-img">
+                                    <p class="testimonial-text">"Boleh mohon walaupun tidak bekerja. Ini sangat membantu untuk orang seperti saya."</p>
+                                    <p class="testimonial-author">- Puan Rosnah, 54 tahun</p>
+                                </div>
+                                
+                                <div class="testimonial-card">
+                                    <img src="https://i.ibb.co/mMncyQJ/Whats-App-Image-2025-12-16-at-15-57-17-1.jpg" alt="Testimoni Pelanggan 8" class="testimonial-img">
+                                    <p class="testimonial-text">"Proses pinjaman yang mudah dan tidak rumit. Staff sangat ramah dan membantu."</p>
+                                    <p class="testimonial-author">- Encik Tan, 59 tahun</p>
+                                </div>
+                                
+                                <div class="testimonial-card">
+                                    <img src="https://i.ibb.co/fVrwyx2J/Whats-App-Image-2025-12-16-at-15-57-17.jpg" alt="Testimoni Pelanggan 9" class="testimonial-img">
+                                    <p class="testimonial-text">"Tiada caj tersembunyi seperti yang dijanjikan. Syarikat yang jujur dan telus."</p>
+                                    <p class="testimonial-author">- Puan Fatimah, 55 tahun</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Slide 4 -->
+                        <div class="slider-slide">
+                            <div class="testimonial-container">
+                                <div class="testimonial-card">
+                                    <img src="https://i.ibb.co/XZ6TXFDm/Whats-App-Image-2025-12-16-at-15-57-16.jpg" alt="Testimoni Pelanggan 10" class="testimonial-img">
+                                    <p class="testimonial-text">"Sangat berterima kasih kepada MQIRAD. Membantu saya menyelesaikan masalah hutang."</p>
+                                    <p class="testimonial-author">- Encik Ravi, 58 tahun</p>
+                                </div>
+                                
+                                <div class="testimonial-card">
+                                    <div style="padding: 40px 20px; text-align: center;">
+                                        <i class="fas fa-comments" style="font-size: 48px; color: var(--accent-color); margin-bottom: 15px;"></i>
+                                        <h3 style="color: var(--primary-color); margin-bottom: 15px;">Lebih Banyak Testimoni</h3>
+                                        <p>Kami mempunyai ratusan testimoni positif daripada pelanggan yang berpuas hati.</p>
+                                        <a href="https://wa.me/60106583343" class="whatsapp-btn" target="_blank" style="margin-top: 20px; display: inline-block;">
+                                            <i class="fab fa-whatsapp"></i> Lihat Testimoni di WhatsApp
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="testimonial-card">
+                                    <div style="padding: 40px 20px; text-align: center;">
+                                        <i class="fas fa-star" style="font-size: 48px; color: #FFD700; margin-bottom: 15px;"></i>
+                                        <h3 style="color: var(--primary-color); margin-bottom: 15px;">Kadar Kelulusan 99.9%</h3>
+                                        <p>Hampir semua permohonan diluluskan dengan kadar yang tinggi.</p>
+                                        <div style="margin-top: 20px; font-size: 24px; color: var(--secondary-color); font-weight: bold;">
+                                            99.9% LULUS
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slider Navigation -->
+                    <button class="slider-btn prev" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn next" id="nextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    
+                    <div class="slider-nav" id="sliderNav">
+                        <div class="slider-dot active" data-slide="0"></div>
+                        <div class="slider-dot" data-slide="1"></div>
+                        <div class="slider-dot" data-slide="2"></div>
+                        <div class="slider-dot" data-slide="3"></div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-placeholder">
+                    <i class="fab fa-whatsapp" style="font-size: 48px; margin-bottom: 15px; color: #25D366;"></i>
+                    <p>Kami attach testimoni pelanggan dalam WhatsApp</p>
+                    <a href="https://wa.me/60106583343" class="whatsapp-btn" target="_blank" style="margin-top: 15px; display: inline-block;">
+                        <i class="fab fa-whatsapp"></i> Lihat Testimoni di WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map -->
+        <section style="margin-top: 60px;">
+            <h2 class="section-title">Lokasi Kami</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d15932.481140605267!2d101.58165405!3d3.3204394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x31cc4380cd12ee03%3A0x5fe0a789b5d066d8!2sKredit%20Komuniti%20M-Qirad%20(Pemberi%20Pinjam%20Wang)%2C%2013A%2C%20Jalan%20Bandar%20Rawang%202%2C%20Pusat%20Bandar%20Rawang%2C%2048000%20Rawang%2C%20Selangor%2C%20Malaysia!3m2!1d3.3229021999999997!2d101.5765105!5e0!3m2!1sen!2smy!4v1766028164319!5m2!1sen!2smy" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MQIRAD</h3>
+                    <p>MILANO ENTERPRISE SDN BHD (207404-D)</p>
+                    <p>Kredit Komuniti Pemberi Pinjaman Wang Berlesen</p>
+                    <p>Berdaftar di bawah Akta Pemberi Pinjam Wang 1951</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Hubungi Kami</h3>
+                    <p><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> 13A, Jalan Bandar Rawang 2, Pusat Bandar Rawang, 48000 Rawang, Selangor</p>
+                    <p><i class="fas fa-phone" style="margin-right: 10px;"></i> +6010-658 3343</p>
+                    <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> officialmqirad@gmail.com</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Waktu Operasi</h3>
+                    <p>Isnin - Jumaat: 9:30 pagi - 5:30 petang</p>
+                    <p>Sabtu: 9:00 pagi - 2:00 petang</p>
+                    <p>Ahad & Cuti Umum: Tutup</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 MILANO ENTERPRISE SDN BHD. Hak Cipta Terpelihara.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // WhatsApp Number (change this to your actual WhatsApp number)
+        const whatsappNumber = "60106583343";
+
+        // Form submission handling to WhatsApp
+        document.getElementById('loanApplicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const nama = document.getElementById('nama').value;
+            const telefon = document.getElementById('telefon').value;
+            const negeri = document.getElementById('negeri').value;
+            const tarikhLahir = document.getElementById('tarikhLahir').value;
+            const simpananKWSP = document.getElementById('simpananKWSP').value;
+            
+            // Calculate age (for display only, not for validation)
+            const birthDate = new Date(tarikhLahir);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            // Check EPF savings only (no age restriction)
+            if (parseInt(simpananKWSP) < 30000) {
+                alert("Simpanan KWSP minimum RM30,000 diperlukan untuk permohonan.");
+                return;
+            }
+            
+            // Format date for display
+            const formattedDate = new Date(tarikhLahir).toLocaleDateString('ms-MY', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            // Create WhatsApp message
+            const message = `*PERMOHONAN PINJAMAN KWSP - MQIRAD*%0A%0A` +
+                           `*NAMA:* ${nama}%0A` +
+                           `*NO TELEFON:* ${telefon}%0A` +
+                           `*NEGERI:* ${negeri}%0A` +
+                           `*TARIKH LAHIR:* ${formattedDate}%0A` +
+                           `*UMUR:* ${age} tahun%0A` +
+                           `*SIMPANAN KWSP:* RM${parseInt(simpananKWSP).toLocaleString('ms-MY')}%0A%0A` +
+                           `*Permohonan ini dihantar melalui borang atas talian MQIRAD.*`;
+            
+            // Create WhatsApp URL
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+            
+            // Open WhatsApp in new tab
+            window.open(whatsappURL, '_blank');
+            
+            // Show confirmation message
+            alert(`Terima kasih ${nama}! Permohonan anda sedang dihantar ke WhatsApp. Sila selesaikan proses penghantaran di WhatsApp yang akan dibuka.`);
+            
+            // Optional: Reset form after submission
+            // document.getElementById('loanApplicationForm').reset();
+        });
+        
+        // Set reasonable date range for calendar (100 years range)
+        const today = new Date();
+        const minDate = new Date(today.getFullYear() - 100, today.getMonth(), today.getDate());
+        const maxDate = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
+        
+        document.getElementById('tarikhLahir').setAttribute('max', maxDate.toISOString().split('T')[0]);
+        document.getElementById('tarikhLahir').setAttribute('min', minDate.toISOString().split('T')[0]);
+        
+        // Set default date to 30 years ago for better UX
+        const defaultDate = new Date(today.getFullYear() - 30, today.getMonth(), today.getDate());
+        document.getElementById('tarikhLahir').value = defaultDate.toISOString().split('T')[0];
+        
+        // Testimonial Slider Functionality
+        const sliderContainer = document.getElementById('sliderContainer');
+        const slides = document.querySelectorAll('.slider-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        
+        // Initialize slider
+        function updateSlider() {
+            sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Next slide
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        });
+        
+        // Previous slide
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        });
+        
+        // Dot click
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                currentSlide = parseInt(dot.getAttribute('data-slide'));
+                updateSlider();
+            });
+        });
+        
+        // Auto slide every 5 seconds
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }, 5000);
+    </script>
+</body>
+</html>
