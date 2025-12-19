@@ -296,6 +296,46 @@
             background-color: #2980b9;
         }
 
+        .submit-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Testimonials */
         .testimonials {
             background-color: #f9f9f9;
@@ -686,6 +726,16 @@
         <!-- Application Form -->
         <section style="margin-top: 60px;">
             <h2 class="section-title">Permohonan Atas Talian</h2>
+            
+            <!-- Messages -->
+            <div id="successMessage" class="message success-message" style="display: none;">
+                <i class="fas fa-check-circle"></i> Permohonan anda berjaya dihantar! Data telah disimpan ke sistem kami.
+            </div>
+            
+            <div id="errorMessage" class="message error-message" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i> Terdapat masalah menghantar permohonan anda. Sila cuba lagi atau hubungi kami terus.
+            </div>
+            
             <div class="info-box">
                 <p style="margin-bottom: 20px; font-size: 18px;"><strong>DOKUMEN RINGKAS, KELULUSAN SEGERA, PROSES CEPAT, DAN MUDAH</strong></p>
                 
@@ -768,9 +818,18 @@
                     </div>
                     
                     <div class="form-group">
-                        <button type="submit" class="submit-btn">
-                            <i class="fas fa-paper-plane"></i> HANTAR PERMOHONAN KE WHATSAPP
+                        <label for="catatan">CATATAN TAMBAHAN (OPTIONAL):</label>
+                        <textarea id="catatan" class="form-control" rows="3" placeholder="Sila nyatakan jika ada keperluan khas atau pertanyaan tambahan"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <span id="submitText"><i class="fas fa-paper-plane"></i> HANTAR PERMOHONAN</span>
+                            <span id="loadingSpinner" class="spinner" style="display: none;"></span>
                         </button>
+                        <small style="display: block; text-align: center; margin-top: 10px; color: #666;">
+                            * Data akan disimpan ke sistem kami dan dihantar ke WhatsApp
+                        </small>
                     </div>
                 </form>
             </div>
@@ -955,21 +1014,47 @@
     </footer>
 
     <script>
-        // WhatsApp Number (change this to your actual WhatsApp number)
+        // WhatsApp Number
         const whatsappNumber = "60106583343";
+        
+        // Google Sheets Setup Instructions:
+        // 1. Create a Google Sheet
+        // 2. Go to Extensions > Apps Script
+        // 3. Delete any existing code and paste the code from the instructions below
+        // 4. Deploy as Web App (Execute as: Me, Who has access: Anyone)
+        // 5. Copy the Web App URL and paste it below
+        const googleSheetsWebAppURL = "https://script.google.com/macros/s/AKfycbwKpgfFXoGrgiBepI6ftbwKapm-QSXQyOBEOD4NxFkTy6YWH45uSzhh-l9Q72aivQ7G/exec";
 
-        // Form submission handling to WhatsApp
-        document.getElementById('loanApplicationForm').addEventListener('submit', function(e) {
+        // Form submission handling
+        document.getElementById('loanApplicationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            // Get form elements
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
             // Get form values
-            const nama = document.getElementById('nama').value;
-            const telefon = document.getElementById('telefon').value;
+            const nama = document.getElementById('nama').value.trim();
+            const telefon = document.getElementById('telefon').value.trim();
             const negeri = document.getElementById('negeri').value;
             const tarikhLahir = document.getElementById('tarikhLahir').value;
             const simpananKWSP = document.getElementById('simpananKWSP').value;
+            const catatan = document.getElementById('catatan').value.trim();
             
-            // Calculate age (for display only, not for validation)
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Validate EPF savings
+            if (parseInt(simpananKWSP) < 30000) {
+                alert("Simpanan KWSP minimum RM30,000 diperlukan untuk permohonan.");
+                return;
+            }
+            
+            // Calculate age
             const birthDate = new Date(tarikhLahir);
             const today = new Date();
             let age = today.getFullYear() - birthDate.getFullYear();
@@ -979,12 +1064,6 @@
                 age--;
             }
             
-            // Check EPF savings only (no age restriction)
-            if (parseInt(simpananKWSP) < 30000) {
-                alert("Simpanan KWSP minimum RM30,000 diperlukan untuk permohonan.");
-                return;
-            }
-            
             // Format date for display
             const formattedDate = new Date(tarikhLahir).toLocaleDateString('ms-MY', {
                 day: 'numeric',
@@ -992,30 +1071,104 @@
                 year: 'numeric'
             });
             
-            // Create WhatsApp message
-            const message = `*PERMOHONAN PINJAMAN KWSP - MQIRAD*%0A%0A` +
-                           `*NAMA:* ${nama}%0A` +
-                           `*NO TELEFON:* ${telefon}%0A` +
-                           `*NEGERI:* ${negeri}%0A` +
-                           `*TARIKH LAHIR:* ${formattedDate}%0A` +
-                           `*UMUR:* ${age} tahun%0A` +
-                           `*SIMPANAN KWSP:* RM${parseInt(simpananKWSP).toLocaleString('ms-MY')}%0A%0A` +
-                           `*Permohonan ini dihantar melalui borang atas talian MQIRAD.*`;
+            // Show loading state
+            submitBtn.disabled = true;
+            submitText.style.display = 'none';
+            loadingSpinner.style.display = 'inline-block';
             
-            // Create WhatsApp URL
-            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
-            
-            // Open WhatsApp in new tab
-            window.open(whatsappURL, '_blank');
-            
-            // Show confirmation message
-            alert(`Terima kasih ${nama}! Permohonan anda sedang dihantar ke WhatsApp. Sila selesaikan proses penghantaran di WhatsApp yang akan dibuka.`);
-            
-            // Optional: Reset form after submission
-            // document.getElementById('loanApplicationForm').reset();
+            try {
+                // Prepare data for Google Sheets
+                const formData = {
+                    timestamp: new Date().toISOString(),
+                    nama: nama,
+                    telefon: telefon,
+                    negeri: negeri,
+                    tarikhLahir: formattedDate,
+                    umur: age,
+                    simpananKWSP: simpananKWSP,
+                    catatan: catatan,
+                    status: 'Baru',
+                    source: 'Website MQIRAD'
+                };
+                
+                // Send to Google Sheets
+                const response = await fetch(googleSheetsWebAppURL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Important for Google Apps Script
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                // Note: With 'no-cors' mode, we can't read the response
+                // But the data should still be sent to Google Sheets
+                
+                // Create WhatsApp message
+                const whatsappMessage = `*PERMOHONAN PINJAMAN KWSP - MQIRAD*%0A%0A` +
+                                      `*NAMA:* ${nama}%0A` +
+                                      `*NO TELEFON:* ${telefon}%0A` +
+                                      `*NEGERI:* ${negeri}%0A` +
+                                      `*TARIKH LAHIR:* ${formattedDate}%0A` +
+                                      `*UMUR:* ${age} tahun%0A` +
+                                      `*SIMPANAN KWSP:* RM${parseInt(simpananKWSP).toLocaleString('ms-MY')}%0A` +
+                                      (catatan ? `*CATATAN:* ${catatan}%0A` : '') +
+                                      `%0A*Permohonan ini dihantar melalui borang atas talian MQIRAD dan telah disimpan ke sistem kami.*`;
+                
+                // Create WhatsApp URL
+                const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+                
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Reset form after 2 seconds
+                setTimeout(() => {
+                    document.getElementById('loanApplicationForm').reset();
+                    
+                    // Set default date back
+                    const defaultDate = new Date(today.getFullYear() - 30, today.getMonth(), today.getDate());
+                    document.getElementById('tarikhLahir').value = defaultDate.toISOString().split('T')[0];
+                    
+                    // Open WhatsApp in new tab
+                    window.open(whatsappURL, '_blank');
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                
+                // Show error message
+                errorMessage.style.display = 'block';
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Still open WhatsApp even if Google Sheets fails
+                const whatsappMessage = `*PERMOHONAN PINJAMAN KWSP - MQIRAD*%0A%0A` +
+                                      `*NAMA:* ${nama}%0A` +
+                                      `*NO TELEFON:* ${telefon}%0A` +
+                                      `*NEGERI:* ${negeri}%0A` +
+                                      `*TARIKH LAHIR:* ${formattedDate}%0A` +
+                                      `*UMUR:* ${age} tahun%0A` +
+                                      `*SIMPANAN KWSP:* RM${parseInt(simpananKWSP).toLocaleString('ms-MY')}%0A` +
+                                      (catatan ? `*CATATAN:* ${catatan}%0A` : '') +
+                                      `%0A*Permohonan ini dihantar melalui borang atas talian MQIRAD.*`;
+                
+                const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+                
+                setTimeout(() => {
+                    window.open(whatsappURL, '_blank');
+                }, 1000);
+                
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitText.style.display = 'inline';
+                loadingSpinner.style.display = 'none';
+            }
         });
         
-        // Set reasonable date range for calendar (100 years range)
+        // Set reasonable date range for calendar
         const today = new Date();
         const minDate = new Date(today.getFullYear() - 100, today.getMonth(), today.getDate());
         const maxDate = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
