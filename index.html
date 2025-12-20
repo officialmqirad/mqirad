@@ -644,6 +644,44 @@
         .slider-btn:hover {
             background-color: rgba(0, 0, 0, 0.7);
         }
+        
+        /* NEW STYLES FOR PHONE INPUT WITH SEPARATE +6 BOX */
+        .phone-input-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .phone-prefix {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 46px;
+            background-color: #f8f9fa;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            color: var(--primary-color);
+            user-select: none;
+            flex-shrink: 0;
+        }
+        
+        .phone-number-input {
+            flex: 1;
+        }
+        
+        /* Remove default arrows from number input */
+        .phone-number-input input::-webkit-outer-spin-button,
+        .phone-number-input input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        .phone-number-input input[type=number] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 <body>
@@ -651,8 +689,8 @@
     <header>
         <div class="container header-container">
             <div class="logo">
-                <img src="https://i.ibb.co/1fv1Q1gt/Gemini-Generated-Image-cuor7cuor7cuor7c.png" alt="MQIRAD Logo" class="logo-img">
-                <div class="logo-text">MQIRAD <span></div>
+                <img src="https://i.ibb.co/PZXkZPFw/Gemini-Generated-Image-p5er5xp5er5xp5er.png" alt="Gemini-Generated-Image-p5er5xp5er5xp5er" class="logo-img">
+                <div class="logo-text">MILANO Your Loan Consultant<span></div>
             </div>
             <div class="contact-info">
                 <div class="contact-item">
@@ -700,8 +738,8 @@
             </div>
             
             <div class="warning-box">
-                <h3><i class="fas fa-exclamation-triangle" style="color: #ff9800; margin-right: 10px;"></i> ADAKAH MQIRAD BERKAITAN DENGAN PIHAK KWSP?</h3>
-                <p><strong>TIDAK.</strong> MQIRAD BUKAN WAKIL ATAU EJEN DARI PIHAK KWSP</p>
+                <h3><i class="fas fa-exclamation-triangle" style="color: #ff9800; margin-right: 10px;"></i> ADAKAH MILANO BERKAITAN DENGAN PIHAK KWSP?</h3>
+                <p><strong>TIDAK.</strong> MILANO BUKAN WAKIL ATAU EJEN DARI PIHAK KWSP</p>
             </div>
         </section>
 
@@ -819,13 +857,19 @@
                     
                     <div class="form-group">
                         <label for="telefon">NO TELEFON:</label>
-                        <input type="tel" id="telefon" class="form-control" placeholder="+6012-345 6789" required>
+                        <!-- NEW PHONE INPUT WITH SEPARATE +6 BOX -->
+                        <div class="phone-input-container">
+                            <div class="phone-prefix" id="phonePrefix">+6</div>
+                            <div class="phone-number-input">
+                                <input type="tel" id="telefon" class="form-control" placeholder="01122339988" maxlength="13" required>
+                            </div>
+                        </div>
                         <div class="phone-hint">
                             <i class="fas fa-info-circle"></i>
-                            <span>Nombor telefon akan automatik dimulakan dengan +6</span>
+                            <span>Hanya masukkan nombor telefon tanpa +6 (contoh 01122339988)</span>
                         </div>
                         <div id="phoneError" class="error-message-small">
-                            <i class="fas fa-exclamation-circle"></i> Sila masukkan nombor telefon yang sah (9-11 digit selepas +6)
+                            <i class="fas fa-exclamation-circle"></i> Sila masukkan nombor telefon yang sah (9-12 digit)
                         </div>
                     </div>
                     
@@ -890,7 +934,7 @@
                             <div class="testimonial-container">
                                 <div class="testimonial-card">
                                     <img src="https://i.ibb.co/8DY4v2dz/Whats-App-Image-2025-12-16-at-16-00-08.jpg" alt="Testimoni Pelanggan 1" class="testimonial-img">
-                                    <p class="testimonial-text">"Sangat berpuas hati dengan perkhidmatan MQIRAD. Proses cepat dan staff sangat membantu."</p>
+                                    <p class="testimonial-text">"Sangat berpuas hati dengan perkhidmatan MILANO. Proses cepat dan staff sangat membantu."</p>
                                     <p class="testimonial-author">- Encik Ahmad, 54 tahun</p>
                                 </div>
                                 
@@ -902,7 +946,7 @@
                                 
                                 <div class="testimonial-card">
                                     <img src="https://i.ibb.co/TBFjKH5H/Whats-App-Image-2025-12-16-at-15-58-50.jpg" alt="Testimoni Pelanggan 3" class="testimonial-img">
-                                    <p class="testimonial-text">"Walaupun dalam senarai bankrap, permohonan saya masih diluluskan. Terima kasih MQIRAD!"</p>
+                                    <p class="testimonial-text">"Walaupun dalam senarai bankrap, permohonan saya masih diluluskan. Terima kasih MILANO!"</p>
                                     <p class="testimonial-author">- Encik Raju, 55 tahun</p>
                                 </div>
                             </div>
@@ -959,7 +1003,7 @@
                             <div class="testimonial-container">
                                 <div class="testimonial-card">
                                     <img src="https://i.ibb.co/XZ6TXFDm/Whats-App-Image-2025-12-16-at-15-57-16.jpg" alt="Testimoni Pelanggan 10" class="testimonial-img">
-                                    <p class="testimonial-text">"Sangat berterima kasih kepada MQIRAD. Membantu saya menyelesaikan masalah hutang."</p>
+                                    <p class="testimonial-text">"Sangat berterima kasih kepada MILANO. Membantu saya menyelesaikan masalah hutang."</p>
                                     <p class="testimonial-author">- Encik Ravi, 58 tahun</p>
                                 </div>
                                 
@@ -1018,7 +1062,7 @@
         <section style="margin-top: 60px;">
             <h2 class="section-title">Lokasi Kami</h2>
             <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d15932.481140605267!2d101.58165405!3d3.3204394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x31cc4380cd12ee03%3A0x5fe0a789b5d066d8!2sKredit%20Komuniti%20M-Qirad%20(Pemberi%20Pinjam%20Wang)%2C%2013A%2C%20Jalan%20Bandar%20Rawang%202%2C%20Pusat%20Bandar%20Rawang%2C%2048000%20Rawang%2C%20Selangor%2C%20Malaysia!3m2!1d3.3229021999999997!2d101.5765105!5e0!3m2!1sen!2smy!4v1766028164319!5m2!1sen!2smy" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.110348265836!2d101.5765105!3d3.322902199999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc4380cd12ee03%3A0x5fe0a789b5d066d8!2sKredit%20Komuniti%20M-Qirad%20-%20Milano%20Enterprise%20Sdn.%20Bhd.!5e0!3m2!1sen!2smy!4v1766205554481!5m2!1sen!2smy" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </section>
     </main>
@@ -1028,7 +1072,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>MQIRAD</h3>
+                    <h3>MILANO</h3>
                     <p>MILANO ENTERPRISE SDN BHD (207404-D)</p>
                     <p>Kredit Komuniti Pemberi Pinjaman Wang Berlesen</p>
                     <p>Berdaftar di bawah Akta Pemberi Pinjam Wang 1951</p>
@@ -1067,47 +1111,51 @@
         // 5. Copy the Web App URL and paste it below
         const googleSheetsWebAppURL = "https://script.google.com/macros/s/AKfycbwKpgfFXoGrgiBepI6ftbwKapm-QSXQyOBEOD4NxFkTy6YWH45uSzhh-l9Q72aivQ7G/exec";
 
-        // ===== PHONE NUMBER FORMATTING WITH +6 =====
+        // ===== PHONE NUMBER VALIDATION WITH SEPARATE +6 BOX =====
         const phoneInput = document.getElementById('telefon');
         const phoneError = document.getElementById('phoneError');
+        const phonePrefix = document.getElementById('phonePrefix');
         
-        // Initialize with +6 when page loads
+        // Initialize - focus on phone input when page loads
         window.addEventListener('load', function() {
-            phoneInput.value = '+6';
-            // Place cursor at the end of the input
             setTimeout(() => {
                 phoneInput.focus();
-                phoneInput.setSelectionRange(2, 2);
             }, 100);
         });
         
-        // Format phone number with +6 automatically
+        // Format phone number as user types
         phoneInput.addEventListener('input', function(e) {
             let value = e.target.value;
             
-            // If user tries to delete the +6, restore it
-            if (!value.startsWith('+6')) {
-                // Remove all non-digit characters
-                let digits = value.replace(/\D/g, '');
-                
-                // Remove leading 6 if present
-                if (digits.startsWith('6')) {
-                    digits = digits.substring(1);
-                }
-                
-                // Always start with +6
-                value = '+6' + digits;
-                
-                // Update the input value
-                e.target.value = value;
-                
-                // Move cursor to the end
-                const cursorPos = value.length;
-                e.target.setSelectionRange(cursorPos, cursorPos);
+            // Remove all non-digit characters
+            let digits = value.replace(/\D/g, '');
+            
+            // Limit to maximum 12 digits
+            if (digits.length > 12) {
+                digits = digits.substring(0, 12);
             }
             
             // Format with dashes for better readability
-            formatPhoneNumberDisplay(e.target);
+            let formatted = digits;
+            if (digits.length > 0) {
+                formatted = digits.substring(0, 3);
+            }
+            if (digits.length > 3) {
+                formatted += '-' + digits.substring(3, 6);
+            }
+            if (digits.length > 6) {
+                // For up to 12 digits, show remaining numbers with space
+                const remaining = digits.substring(6);
+                if (remaining.length > 0) {
+                    formatted += ' ' + remaining;
+                }
+            }
+            
+            // Update the input value
+            e.target.value = formatted;
+            
+            // Store the raw digits in a data attribute for later use
+            e.target.dataset.rawDigits = digits;
             
             // Validate the phone number
             validatePhoneNumber();
@@ -1121,74 +1169,52 @@
                 // Remove all non-digit characters
                 let digits = value.replace(/\D/g, '');
                 
-                // Remove leading 6 if present
-                if (digits.startsWith('6')) {
-                    digits = digits.substring(1);
+                // Limit to maximum 12 digits
+                if (digits.length > 12) {
+                    digits = digits.substring(0, 12);
                 }
                 
-                // Always start with +6
-                value = '+6' + digits;
+                // Format with dashes
+                let formatted = digits;
+                if (digits.length > 0) {
+                    formatted = digits.substring(0, 3);
+                }
+                if (digits.length > 3) {
+                    formatted += '-' + digits.substring(3, 6);
+                }
+                if (digits.length > 6) {
+                    // For up to 12 digits, show remaining numbers with space
+                    const remaining = digits.substring(6);
+                    if (remaining.length > 0) {
+                        formatted += ' ' + remaining;
+                    }
+                }
                 
                 // Update the input value
-                e.target.value = value;
+                e.target.value = formatted;
                 
-                // Format with dashes
-                formatPhoneNumberDisplay(e.target);
+                // Store the raw digits
+                e.target.dataset.rawDigits = digits;
                 
                 // Validate
                 validatePhoneNumber();
             }, 0);
         });
         
-        // Format phone number with dashes for better readability
-        function formatPhoneNumberDisplay(input) {
-            let value = input.value;
-            
-            // Remove all non-digit characters (keep +)
-            let digits = value.replace(/[^\d+]/g, '');
-            
-            // Ensure it starts with +6
-            if (!digits.startsWith('+6')) {
-                digits = '+6' + digits.replace(/^\+?6?/, '');
-            }
-            
-            // Remove the +6 for formatting
-            let numberPart = digits.substring(2);
-            
-            // Format with dashes: +6012-345 6789
-            let formatted = '+6';
-            if (numberPart.length > 0) {
-                formatted += numberPart.substring(0, 3);
-            }
-            if (numberPart.length > 3) {
-                formatted += '-' + numberPart.substring(3, 6);
-            }
-            if (numberPart.length > 6) {
-                formatted += ' ' + numberPart.substring(6, 10);
-            }
-            
-            // Update the input value
-            input.value = formatted;
-            
-            // Store the raw digits in a data attribute for later use
-            input.dataset.rawDigits = '+6' + numberPart;
-        }
-        
-        // Validate phone number
+        // Validate phone number - 9-12 DIGITS
         function validatePhoneNumber() {
-            const rawDigits = phoneInput.dataset.rawDigits || phoneInput.value.replace(/[^\d+]/g, '');
-            const digitsOnly = rawDigits.substring(2); // Remove +6
+            const rawDigits = phoneInput.dataset.rawDigits || phoneInput.value.replace(/\D/g, '');
             
-            // Malaysian mobile numbers: 9-11 digits after +6
-            const isValid = digitsOnly.length >= 9 && digitsOnly.length <= 11;
+            // Malaysian mobile numbers: 9-12 digits
+            const isValid = rawDigits.length >= 9 && rawDigits.length <= 12;
             
             // Update UI based on validation
-            if (digitsOnly.length > 0 && !isValid) {
+            if (rawDigits.length > 0 && !isValid) {
                 phoneError.classList.add('show');
                 phoneInput.classList.add('invalid');
                 phoneInput.classList.remove('valid');
                 return false;
-            } else if (digitsOnly.length >= 9 && isValid) {
+            } else if (rawDigits.length >= 9 && isValid) {
                 phoneError.classList.remove('show');
                 phoneInput.classList.add('valid');
                 phoneInput.classList.remove('invalid');
@@ -1200,12 +1226,12 @@
             }
         }
         
-        // Get cleaned phone number (digits only with +6)
-        function getCleanPhoneNumber() {
-            const rawDigits = phoneInput.dataset.rawDigits || phoneInput.value.replace(/[^\d+]/g, '');
-            return rawDigits;
+        // Get cleaned phone number with +6 prefix
+        function getFullPhoneNumber() {
+            const rawDigits = phoneInput.dataset.rawDigits || phoneInput.value.replace(/\D/g, '');
+            return '+6' + rawDigits;
         }
-        // ===== END PHONE NUMBER FORMATTING =====
+        // ===== END PHONE NUMBER VALIDATION =====
 
         // Form submission handling
         document.getElementById('loanApplicationForm').addEventListener('submit', async function(e) {
@@ -1220,7 +1246,7 @@
             
             // Get form values
             const nama = document.getElementById('nama').value.trim();
-            const telefon = getCleanPhoneNumber(); // Use cleaned phone number
+            const telefon = getFullPhoneNumber(); // Use full phone number with +6
             const negeri = document.getElementById('negeri').value;
             const tarikhLahir = document.getElementById('tarikhLahir').value;
             const simpananKWSP = document.getElementById('simpananKWSP').value;
@@ -1228,7 +1254,7 @@
             
             // Validate phone number
             if (!validatePhoneNumber()) {
-                alert("Sila masukkan nombor telefon yang sah. Contoh: +60123456789 (9-11 digit)");
+                alert("Sila masukkan nombor telefon yang sah. Contoh: 123456789 (9-12 digit)");
                 phoneInput.focus();
                 return;
             }
@@ -1317,10 +1343,10 @@
                 setTimeout(() => {
                     document.getElementById('loanApplicationForm').reset();
                     
-                    // Reset phone input to +6
-                    phoneInput.value = '+6';
+                    // Reset phone input
+                    phoneInput.value = '';
                     delete phoneInput.dataset.rawDigits;
-                    validatePhoneNumber();
+                    phoneInput.classList.remove('valid', 'invalid');
                     
                     // Set default date back
                     const defaultDate = new Date(today.getFullYear() - 30, today.getMonth(), today.getDate());
