@@ -21,6 +21,8 @@
             --gray-color: #f5f5f5;
             --text-color: #333333;
             --border-color: #dddddd;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
         }
 
         body {
@@ -246,7 +248,7 @@
             margin: 30px 0;
         }
 
-        /* Form Styles */
+        /* Form Styles - Updated with phone validation */
         .application-form {
             background-color: var(--gray-color);
             padding: 40px;
@@ -256,6 +258,7 @@
 
         .form-group {
             margin-bottom: 25px;
+            position: relative;
         }
 
         .form-group label {
@@ -274,9 +277,41 @@
             transition: border-color 0.3s;
         }
 
+        .form-control.valid {
+            border-color: var(--success-color);
+        }
+
+        .form-control.invalid {
+            border-color: var(--error-color);
+        }
+
         .form-control:focus {
             border-color: var(--accent-color);
             outline: none;
+        }
+
+        .error-message-small {
+            color: var(--error-color);
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message-small.show {
+            display: block;
+        }
+
+        .phone-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .phone-hint i {
+            color: var(--accent-color);
         }
 
         .submit-btn {
@@ -784,7 +819,14 @@
                     
                     <div class="form-group">
                         <label for="telefon">NO TELEFON:</label>
-                        <input type="tel" id="telefon" class="form-control" placeholder="Contoh: 012-345 6789" required>
+                        <input type="tel" id="telefon" class="form-control" placeholder="+6012-345 6789" required>
+                        <div class="phone-hint">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Nombor telefon akan automatik dimulakan dengan +6</span>
+                        </div>
+                        <div id="phoneError" class="error-message-small">
+                            <i class="fas fa-exclamation-circle"></i> Sila masukkan nombor telefon yang sah (9-11 digit selepas +6)
+                        </div>
                     </div>
                     
                     <div class="form-group">
@@ -1023,7 +1065,147 @@
         // 3. Delete any existing code and paste the code from the instructions below
         // 4. Deploy as Web App (Execute as: Me, Who has access: Anyone)
         // 5. Copy the Web App URL and paste it below
-        const googleSheetsWebAppURL = "https://script.google.com/macros/s/AKfycbz06zm_muFq3l_aNAJKWuIL6wUvGSvmn9hMCUlz181bKeRlAUwNiVPPhauw11Tu5-K46Q/exec";
+        const googleSheetsWebAppURL = "https://script.google.com/macros/s/AKfycbwKpgfFXoGrgiBepI6ftbwKapm-QSXQyOBEOD4NxFkTy6YWH45uSzhh-l9Q72aivQ7G/exec";
+
+        // ===== PHONE NUMBER FORMATTING WITH +6 =====
+        const phoneInput = document.getElementById('telefon');
+        const phoneError = document.getElementById('phoneError');
+        
+        // Initialize with +6 when page loads
+        window.addEventListener('load', function() {
+            phoneInput.value = '+6';
+            // Place cursor at the end of the input
+            setTimeout(() => {
+                phoneInput.focus();
+                phoneInput.setSelectionRange(2, 2);
+            }, 100);
+        });
+        
+        // Format phone number with +6 automatically
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value;
+            
+            // If user tries to delete the +6, restore it
+            if (!value.startsWith('+6')) {
+                // Remove all non-digit characters
+                let digits = value.replace(/\D/g, '');
+                
+                // Remove leading 6 if present
+                if (digits.startsWith('6')) {
+                    digits = digits.substring(1);
+                }
+                
+                // Always start with +6
+                value = '+6' + digits;
+                
+                // Update the input value
+                e.target.value = value;
+                
+                // Move cursor to the end
+                const cursorPos = value.length;
+                e.target.setSelectionRange(cursorPos, cursorPos);
+            }
+            
+            // Format with dashes for better readability
+            formatPhoneNumberDisplay(e.target);
+            
+            // Validate the phone number
+            validatePhoneNumber();
+        });
+        
+        // Also handle paste event
+        phoneInput.addEventListener('paste', function(e) {
+            setTimeout(() => {
+                let value = e.target.value;
+                
+                // Remove all non-digit characters
+                let digits = value.replace(/\D/g, '');
+                
+                // Remove leading 6 if present
+                if (digits.startsWith('6')) {
+                    digits = digits.substring(1);
+                }
+                
+                // Always start with +6
+                value = '+6' + digits;
+                
+                // Update the input value
+                e.target.value = value;
+                
+                // Format with dashes
+                formatPhoneNumberDisplay(e.target);
+                
+                // Validate
+                validatePhoneNumber();
+            }, 0);
+        });
+        
+        // Format phone number with dashes for better readability
+        function formatPhoneNumberDisplay(input) {
+            let value = input.value;
+            
+            // Remove all non-digit characters (keep +)
+            let digits = value.replace(/[^\d+]/g, '');
+            
+            // Ensure it starts with +6
+            if (!digits.startsWith('+6')) {
+                digits = '+6' + digits.replace(/^\+?6?/, '');
+            }
+            
+            // Remove the +6 for formatting
+            let numberPart = digits.substring(2);
+            
+            // Format with dashes: +6012-345 6789
+            let formatted = '+6';
+            if (numberPart.length > 0) {
+                formatted += numberPart.substring(0, 3);
+            }
+            if (numberPart.length > 3) {
+                formatted += '-' + numberPart.substring(3, 6);
+            }
+            if (numberPart.length > 6) {
+                formatted += ' ' + numberPart.substring(6, 10);
+            }
+            
+            // Update the input value
+            input.value = formatted;
+            
+            // Store the raw digits in a data attribute for later use
+            input.dataset.rawDigits = '+6' + numberPart;
+        }
+        
+        // Validate phone number
+        function validatePhoneNumber() {
+            const rawDigits = phoneInput.dataset.rawDigits || phoneInput.value.replace(/[^\d+]/g, '');
+            const digitsOnly = rawDigits.substring(2); // Remove +6
+            
+            // Malaysian mobile numbers: 9-11 digits after +6
+            const isValid = digitsOnly.length >= 9 && digitsOnly.length <= 11;
+            
+            // Update UI based on validation
+            if (digitsOnly.length > 0 && !isValid) {
+                phoneError.classList.add('show');
+                phoneInput.classList.add('invalid');
+                phoneInput.classList.remove('valid');
+                return false;
+            } else if (digitsOnly.length >= 9 && isValid) {
+                phoneError.classList.remove('show');
+                phoneInput.classList.add('valid');
+                phoneInput.classList.remove('invalid');
+                return true;
+            } else {
+                phoneError.classList.remove('show');
+                phoneInput.classList.remove('valid', 'invalid');
+                return false;
+            }
+        }
+        
+        // Get cleaned phone number (digits only with +6)
+        function getCleanPhoneNumber() {
+            const rawDigits = phoneInput.dataset.rawDigits || phoneInput.value.replace(/[^\d+]/g, '');
+            return rawDigits;
+        }
+        // ===== END PHONE NUMBER FORMATTING =====
 
         // Form submission handling
         document.getElementById('loanApplicationForm').addEventListener('submit', async function(e) {
@@ -1038,11 +1220,18 @@
             
             // Get form values
             const nama = document.getElementById('nama').value.trim();
-            const telefon = document.getElementById('telefon').value.trim();
+            const telefon = getCleanPhoneNumber(); // Use cleaned phone number
             const negeri = document.getElementById('negeri').value;
             const tarikhLahir = document.getElementById('tarikhLahir').value;
             const simpananKWSP = document.getElementById('simpananKWSP').value;
             const catatan = document.getElementById('catatan').value.trim();
+            
+            // Validate phone number
+            if (!validatePhoneNumber()) {
+                alert("Sila masukkan nombor telefon yang sah. Contoh: +60123456789 (9-11 digit)");
+                phoneInput.focus();
+                return;
+            }
             
             // Hide previous messages
             successMessage.style.display = 'none';
@@ -1127,6 +1316,11 @@
                 // Reset form after 2 seconds
                 setTimeout(() => {
                     document.getElementById('loanApplicationForm').reset();
+                    
+                    // Reset phone input to +6
+                    phoneInput.value = '+6';
+                    delete phoneInput.dataset.rawDigits;
+                    validatePhoneNumber();
                     
                     // Set default date back
                     const defaultDate = new Date(today.getFullYear() - 30, today.getMonth(), today.getDate());
