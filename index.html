@@ -275,7 +275,105 @@
             background-color: #a8f1ff;
             color: #fafcfc;
         }
+        .floating-phone {
+    background-color: #a4f1f5;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 20px rgba(164, 241, 245, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+}
 
+.floating-phone:hover {
+    background-color: #0019f7;
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(164, 241, 245, 0.6);
+}
+
+.phone-tooltip {
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.phone-tooltip:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -5px;
+    transform: translateY(-50%);
+    border-left: 5px solid var(--primary-color);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+}
+
+.floating-phone:hover .phone-tooltip {
+    opacity: 1;
+    visibility: visible;
+    right: 75px;
+}
+
+/* Update floating buttons container for better spacing */
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+/* Mobile Responsive Styles for Phone Button */
+@media (max-width: 768px) {
+    .floating-phone {
+        width: 55px;
+        height: 55px;
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 576px) {
+    .floating-phone {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .phone-tooltip {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .floating-phone {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+       
         /* Header Styles */
         header {
             background-color: var(--light-color);
@@ -1085,49 +1183,48 @@
             <div class="logo">
                 <img src="https://i.ibb.co/PZXkZPFw/Gemini-Generated-Image-p5er5xp5er5xp5er.png" alt="Gemini-Generated-Image-p5er5xp5er5xp5er" class="logo-img">
                 <div class="logo-text">MILANO<span></div>
-            </div>
-            <div class="contact-info desktop-header">
-                <div class="contact-item">
-                    <i class="fas fa-phone contact-icon"></i>
-                    <span>+6010-658 3343</span>
-                </div>
-            </div>
-            <div class="contact-info mobile-header">
-                <div class="contact-item">
-                    <i class="fas fa-phone contact-icon"></i>
-                    <span>+6010-658 3343</span>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Floating Action Buttons -->
-    <div class="floating-buttons">
-        <!-- WhatsApp Button -->
-        <a href="https://wa.me/60106583343" class="floating-whatsapp" target="_blank">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-        
-        <!-- Language Button -->
-        <div class="floating-language" id="floatingLanguageBtn">
-            <i class="fas fa-globe"></i>
-            <span class="language-tooltip" id="languageTooltip">Change Language</span>
-            <div class="language-floating-dropdown" id="floatingLanguageDropdown">
-                <div class="floating-language-option" data-lang="en">
-                    <span class="language-flag">🇺🇸</span>
-                    <span>English</span>
-                </div>
-                <div class="floating-language-option" data-lang="ms">
-                    <span class="language-flag">🇲🇾</span>
-                    <span>Bahasa Melayu</span>
-                </div>
-                <div class="floating-language-option" data-lang="zh">
-                    <span class="language-flag">🇨🇳</span>
-                    <span>中文</span>
-                </div>
-                <div class="floating-language-option" data-lang="ta">
-                    <span class="language-flag">🇮🇳</span>
-                    <span>தமிழ்</span>
+<div class="floating-buttons">
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/60106583343" class="floating-whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- Phone Call Button -->
+    <a href="tel:+60106583343" class="floating-phone">
+        <i class="fas fa-phone"></i>
+        <span class="phone-tooltip">Call Us</span>
+    </a>
+    
+    <!-- Language Button -->
+    <div class="floating-language" id="floatingLanguageBtn">
+        <i class="fas fa-globe"></i>
+        <span class="language-tooltip" id="languageTooltip">Change Language</span>
+        <div class="language-floating-dropdown" id="floatingLanguageDropdown">
+            <div class="floating-language-option" data-lang="en">
+                <span class="language-flag">🇺🇸</span>
+                <span>English</span>
+            </div>
+            <div class="floating-language-option" data-lang="ms">
+                <span class="language-flag">🇲🇾</span>
+                <span>Bahasa Melayu</span>
+            </div>
+            <div class="floating-language-option" data-lang="zh">
+                <span class="language-flag">🇨🇳</span>
+                <span>中文</span>
+            </div>
+            <div class="floating-language-option" data-lang="ta">
+                <span class="language-flag">🇮🇳</span>
+                <span>தமிழ்</span>
+            </div>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
         </div>
@@ -1532,6 +1629,7 @@
                 // Floating buttons
                 whatsappText: "WhatsApp Us",
                 languageTooltip: "Change Language",
+                phoneTooltip: "Call Us",
                 
                 // Hero
                 heroTitle: "PROFESSIONAL FINANCIAL <span>CONSULTATION</span>",
@@ -1649,6 +1747,7 @@
                 // Floating buttons
                 whatsappText: "WhatsApp Kami",
                 languageTooltip: "Tukar Bahasa",
+                phoneTooltip: "Hubungi Kami",
                 
                 // Hero
                 heroTitle: "PERUNDINGAN KEWANGAN <span>PROFESIONAL</span>",
@@ -1766,6 +1865,7 @@
                 // Floating buttons
                 whatsappText: "WhatsApp 我们",
                 languageTooltip: "更改语言",
+                phoneTooltip: "联系我们",
                 
                 // Hero
                 heroTitle: "专业财务<span>咨询</span>",
@@ -1883,6 +1983,7 @@
                 // Floating buttons
                 whatsappText: "WhatsApp எங்களை",
                 languageTooltip: "மொழியை மாற்றவும்",
+                phoneTooltip: "எங்களை அழைக்கவும்",
                 
                 // Hero
                 heroTitle: "தொழில்முறை நிதி <span>ஆலோசனை</span>",
@@ -2131,6 +2232,9 @@
             document.getElementById('hoursSaturday').textContent = langData.hoursSaturday;
             document.getElementById('hoursSunday').textContent = langData.hoursSunday;
             document.getElementById('copyrightText').innerHTML = langData.copyrightText;
+
+	    // Update phone tooltip
+ 	    document.querySelector('.phone-tooltip').textContent = langData.phoneTooltip;
         }
         
         // Language selection in modal
@@ -2143,7 +2247,7 @@
                 document.getElementById('languageModal').classList.add('hidden');
             });
         });
-        
+
         // Floating language button functionality
         const floatingLanguageBtn = document.getElementById('floatingLanguageBtn');
         const floatingLanguageDropdown = document.getElementById('floatingLanguageDropdown');
