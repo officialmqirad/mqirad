@@ -178,12 +178,48 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
+            position: relative;
         }
 
         .floating-whatsapp:hover {
             background-color: #1da851;
             transform: scale(1.1);
             box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .whatsapp-tooltip:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -5px;
+            transform: translateY(-50%);
+            border-left: 5px solid var(--primary-color);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+
+        .floating-whatsapp:hover .whatsapp-tooltip,
+        .floating-whatsapp:active .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+            right: 75px;
         }
 
         .floating-language {
@@ -236,12 +272,13 @@
             border-bottom: 5px solid transparent;
         }
 
-        .floating-language:hover .language-tooltip {
+        .floating-language:hover .language-tooltip,
+        .floating-language:active .language-tooltip {
             opacity: 1;
             visibility: visible;
             right: 75px;
         }
-
+        
         /* Language Dropdown for Floating Button */
         .language-floating-dropdown {
             position: absolute;
@@ -326,7 +363,8 @@
     border-bottom: 5px solid transparent;
 }
 
-.floating-phone:hover .phone-tooltip {
+.floating-phone:hover .phone-tooltip,
+.floating-phone:active .phone-tooltip {
     opacity: 1;
     visibility: visible;
     right: 75px;
@@ -700,8 +738,7 @@
         }
 
         .testimonial-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            display: flex;
             gap: 30px;
             margin-bottom: 40px;
         }
@@ -715,6 +752,8 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            min-width: calc(33.333% - 20px);
+            flex: 0 0 calc(33.333% - 20px);
         }
 
         .testimonial-img {
@@ -843,21 +882,27 @@
             font-weight: 700;
         }
 
-        /* Slider for testimonials */
+        /* Slider for testimonials - UPDATED */
         .testimonial-slider {
             position: relative;
             overflow: hidden;
             margin-bottom: 40px;
+            width: 100%;
         }
 
         .slider-container {
             display: flex;
             transition: transform 0.5s ease;
+            width: 100%;
+            gap: 0; /* Remove gap for slider */
         }
 
         .slider-slide {
             min-width: 100%;
-            padding: 0 15px;
+            display: flex;
+            gap: 30px;
+            padding: 0 10px;
+            box-sizing: border-box;
         }
 
         .slider-nav {
@@ -927,6 +972,11 @@
             .language-options {
                 grid-template-columns: 1fr;
             }
+            
+            .testimonial-card {
+                min-width: calc(50% - 15px);
+                flex: 0 0 calc(50% - 15px);
+            }
         }
 
         @media (max-width: 768px) {
@@ -986,8 +1036,9 @@
                 font-size: 24px;
             }
             
-            .testimonial-container {
-                grid-template-columns: 1fr;
+            .testimonial-card {
+                min-width: calc(100% - 20px);
+                flex: 0 0 calc(100% - 20px);
             }
             
             .logo-img {
@@ -1013,7 +1064,8 @@
             }
             
             .floating-whatsapp,
-            .floating-language {
+            .floating-language,
+            .floating-phone {
                 width: 55px;
                 height: 55px;
                 font-size: 24px;
@@ -1021,6 +1073,23 @@
             
             .language-floating-dropdown {
                 min-width: 180px;
+            }
+            
+            .whatsapp-tooltip,
+            .phone-tooltip,
+            .language-tooltip {
+                font-size: 12px;
+                padding: 6px 10px;
+                right: 65px;
+            }
+            
+            .floating-whatsapp:hover .whatsapp-tooltip,
+            .floating-whatsapp:active .whatsapp-tooltip,
+            .floating-phone:hover .phone-tooltip,
+            .floating-phone:active .phone-tooltip,
+            .floating-language:hover .language-tooltip,
+            .floating-language:active .language-tooltip {
+                right: 70px;
             }
         }
 
@@ -1039,10 +1108,6 @@
             
             .content-section {
                 padding: 30px 0;
-            }
-            
-            .testimonial-container {
-                grid-template-columns: 1fr;
             }
             
             .logo-img {
@@ -1090,7 +1155,8 @@
             }
             
             .floating-whatsapp,
-            .floating-language {
+            .floating-language,
+            .floating-phone {
                 width: 50px;
                 height: 50px;
                 font-size: 22px;
@@ -1106,9 +1172,21 @@
                 font-size: 14px;
             }
             
+            .whatsapp-tooltip,
+            .phone-tooltip,
             .language-tooltip {
-                font-size: 12px;
-                padding: 6px 10px;
+                font-size: 11px;
+                padding: 5px 8px;
+                right: 60px;
+            }
+            
+            .floating-whatsapp:hover .whatsapp-tooltip,
+            .floating-whatsapp:active .whatsapp-tooltip,
+            .floating-phone:hover .phone-tooltip,
+            .floating-phone:active .phone-tooltip,
+            .floating-language:hover .language-tooltip,
+            .floating-language:active .language-tooltip {
+                right: 65px;
             }
         }
 
@@ -1129,13 +1207,30 @@
                 bottom: 8px;
                 right: 8px;
             }
+            
+            .whatsapp-tooltip,
+            .phone-tooltip,
+            .language-tooltip {
+                font-size: 10px;
+                right: 55px;
+            }
+            
+            .floating-whatsapp:hover .whatsapp-tooltip,
+            .floating-whatsapp:active .whatsapp-tooltip,
+            .floating-phone:hover .phone-tooltip,
+            .floating-phone:active .phone-tooltip,
+            .floating-language:hover .language-tooltip,
+            .floating-language:active .language-tooltip {
+                right: 60px;
+            }
         }
 
         /* Touch-friendly improvements for mobile */
         @media (hover: none) and (pointer: coarse) {
             .submit-btn,
             .floating-whatsapp,
-            .floating-language {
+            .floating-language,
+            .floating-phone {
                 min-height: 44px; /* Minimum touch target size */
             }
             
@@ -1146,6 +1241,15 @@
             .slider-btn {
                 width: 44px;
                 height: 44px;
+            }
+            
+            /* Show tooltips on touch for mobile devices */
+            .floating-whatsapp:active .whatsapp-tooltip,
+            .floating-phone:active .phone-tooltip,
+            .floating-language:active .language-tooltip {
+                opacity: 1;
+                visibility: visible;
+                right: 60px;
             }
         }
     </style>
@@ -1190,9 +1294,10 @@
 
     <!-- Floating Action Buttons -->
 <div class="floating-buttons">
-    <!-- WhatsApp Button -->
+    <!-- WhatsApp Button - Updated with tooltip -->
     <a href="https://wa.me/60106583343" class="floating-whatsapp" target="_blank">
         <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-tooltip" id="whatsappTooltip">WhatsApp Kami</span>
     </a>
     
     <!-- Phone Call Button -->
@@ -1441,7 +1546,7 @@
             </div>
         </section>
 
-        <!-- Testimonials -->
+        <!-- Testimonials - UPDATED FOR SLIDER -->
         <section class="testimonials">
             <div class="container">
                 <h2 class="section-title" id="testimonialTitle">Feedback Pelanggan</h2>
@@ -1451,101 +1556,93 @@
                     <div class="slider-container" id="sliderContainer">
                         <!-- Slide 1 -->
                         <div class="slider-slide">
-                            <div class="testimonial-container">
-                                <div class="testimonial-card">
-                                    <img src="https://i.ibb.co/8DY4v2dz/Whats-App-Image-2025-12-16-at-16-00-08.jpg" alt="Testimoni Pelanggan 1" class="testimonial-img">
-                                    <p class="testimonial-text" id="testimonial1">"Sangat berpuas hati dengan perkhidmatan MILANO. Proses cepat dan staff sangat membantu."</p>
-                                    <p class="testimonial-author" id="testimonialAuthor1">- Encik Ahmad, 54 tahun</p>
-                                </div>
-                                
-                                <div class="testimonial-card">
-                                    <img src="https://i.ibb.co/twvmFskH/Whats-App-Image-2025-12-16-at-15-58-50-1.jpg" alt="Testimoni Pelanggan 2" class="testimonial-img">
-                                    <p class="testimonial-text" id="testimonial2">"Tiada bayaran pendahuluan dan tiada komitmen bulanan. Sangat sesuai untuk keperluan tunai segera."</p>
-                                    <p class="testimonial-author" id="testimonialAuthor2">- Puan Siti, 59 tahun</p>
-                                </div>
-                                
-                                <div class="testimonial-card">
-                                    <img src="https://i.ibb.co/TBFjKH5H/Whats-App-Image-2025-12-16-at-15-58-50.jpg" alt="Testimoni Pelanggan 3" class="testimonial-img">
-                                    <p class="testimonial-text" id="testimonial3">"Walaupun dalam senarai bankrap, permohonan saya masih diluluskan. Terima kasih MILANO!"</p>
-                                    <p class="testimonial-author" id="testimonialAuthor3">- Encik Raju, 55 tahun</p>
-                                </div>
+                            <div class="testimonial-card">
+                                <img src="https://i.ibb.co/8DY4v2dz/Whats-App-Image-2025-12-16-at-16-00-08.jpg" alt="Testimoni Pelanggan 1" class="testimonial-img">
+                                <p class="testimonial-text" id="testimonial1">"Sangat berpuas hati dengan perkhidmatan MILANO. Proses cepat dan staff sangat membantu."</p>
+                                <p class="testimonial-author" id="testimonialAuthor1">- Encik Ahmad, 54 tahun</p>
+                            </div>
+                            
+                            <div class="testimonial-card">
+                                <img src="https://i.ibb.co/twvmFskH/Whats-App-Image-2025-12-16-at-15-58-50-1.jpg" alt="Testimoni Pelanggan 2" class="testimonial-img">
+                                <p class="testimonial-text" id="testimonial2">"Tiada bayaran pendahuluan dan tiada komitmen bulanan. Sangat sesuai untuk keperluan tunai segera."</p>
+                                <p class="testimonial-author" id="testimonialAuthor2">- Puan Siti, 59 tahun</p>
+                            </div>
+                            
+                            <div class="testimonial-card">
+                                <img src="https://i.ibb.co/TBFjKH5H/Whats-App-Image-2025-12-16-at-15-58-50.jpg" alt="Testimoni Pelanggan 3" class="testimonial-img">
+                                <p class="testimonial-text" id="testimonial3">"Walaupun dalam senarai bankrap, permohonan saya masih diluluskan. Terima kasih MILANO!"</p>
+                                <p class="testimonial-author" id="testimonialAuthor3">- Encik Raju, 55 tahun</p>
                             </div>
                         </div>
                         
                         <!-- Slide 2 -->
                         <div class="slider-slide">
-                            <div class="testimonial-container">
-                                <div class="testimonial-card">
-                                    <img src="https://i.ibb.co/WWmGtQTM/Whats-App-Image-2025-12-16-at-15-58-49.jpg" alt="Testimoni Pelanggan 4" class="testimonial-img">
-                                    <p class="testimonial-text" id="testimonial4">"Dana diterima dalam masa 3 hari selepas permohonan. Sangat efisien dan profesional."</p>
-                                    <p class="testimonial-author" id="testimonialAuthor4">- Encik Lim, 58 tahun</p>
-                                </div>
-                                
-                                <div class="testimonial-card">
-                                    <img src="https://i.ibb.co/kWkcB2d/Whats-App-Image-2025-12-16-at-15-57-19.jpg" alt="Testimoni Pelanggan 5" class="testimonial-img">
-                                    <p class="testimonial-text" id="testimonial5">"Perkhidmatan yang sangat membantu untuk keperluan perubatan keluarga saya."</p>
-                                    <p class="testimonial-author" id="testimonialAuthor5">- Puan Maimunah, 60 tahun</p>
-                                </div>
-                                
-                                <div class="testimonial-card">
-                                    <img src="https://i.ibb.co/JRddVGzv/Whats-App-Image-2025-12-16-at-15-57-18.jpg" alt="Testimoni Pelanggan 6" class="testimonial-img">
-                                    <p class="testimonial-text" id="testimonial6">"Syarikat yang amanah dan boleh dipercayai. Semua proses dijelaskan dengan terperinci."</p>
-                                    <p class="testimonial-author" id="testimonialAuthor6">- Encik Kumar, 53 tahun</p>
-                                </div>
+                            <div class="testimonial-card">
+                                <img src="https://i.ibb.co/WWmGtQTM/Whats-App-Image-2025-12-16-at-15-58-49.jpg" alt="Testimoni Pelanggan 4" class="testimonial-img">
+                                <p class="testimonial-text" id="testimonial4">"Dana diterima dalam masa 3 hari selepas permohonan. Sangat efisien dan profesional."</p>
+                                <p class="testimonial-author" id="testimonialAuthor4">- Encik Lim, 58 tahun</p>
+                            </div>
+                            
+                            <div class="testimonial-card">
+                                <img src="https://i.ibb.co/kWkcB2d/Whats-App-Image-2025-12-16-at-15-57-19.jpg" alt="Testimoni Pelanggan 5" class="testimonial-img">
+                                <p class="testimonial-text" id="testimonial5">"Perkhidmatan yang sangat membantu untuk keperluan perubatan keluarga saya."</p>
+                                <p class="testimonial-author" id="testimonialAuthor5">- Puan Maimunah, 60 tahun</p>
+                            </div>
+                            
+                            <div class="testimonial-card">
+                                <img src="https://i.ibb.co/JRddVGzv/Whats-App-Image-2025-12-16-at-15-57-18.jpg" alt="Testimoni Pelanggan 6" class="testimonial-img">
+                                <p class="testimonial-text" id="testimonial6">"Syarikat yang amanah dan boleh dipercayai. Semua proses dijelaskan dengan terperinci."</p>
+                                <p class="testimonial-author" id="testimonialAuthor6">- Encik Kumar, 53 tahun</p>
                             </div>
                         </div>
                         
                         <!-- Slide 3 -->
                         <div class="slider-slide">
-                            <div class="testimonial-container">
-                                <div class="testimonial-card">
-                                    <img src="https://i.ibb.co/JRJPDRhN/Whats-App-Image-2025-12-16-at-15-57-17-2.jpg" alt="Testimoni Pelanggan 7" class="testimonial-img">
-                                    <p class="testimonial-text" id="testimonial7">"Boleh mohon walaupun tidak bekerja. Ini sangat membantu untuk orang seperti saya."</p>
-                                    <p class="testimonial-author" id="testimonialAuthor7">- Puan Rosnah, 54 tahun</p>
-                                </div>
-                                
-                                <div class="testimonial-card">
-                                    <img src="https://i.ibb.co/mMncyQJ/Whats-App-Image-2025-12-16-at-15-57-17-1.jpg" alt="Testimoni Pelanggan 8" class="testimonial-img">
-                                    <p class="testimonial-text" id="testimonial8">"Proses pinjaman yang mudah dan tidak rumit. Staff sangat ramah dan membantu."</p>
-                                    <p class="testimonial-author" id="testimonialAuthor8">- Encik Tan, 59 tahun</p>
-                                </div>
-                                
-                                <div class="testimonial-card">
-                                    <img src="https://i.ibb.co/fVrwyx2J/Whats-App-Image-2025-12-16-at-15-57-17.jpg" alt="Testimoni Pelanggan 9" class="testimonial-img">
-                                    <p class="testimonial-text" id="testimonial9">"Tiada caj tersembunyi seperti yang dijanjikan. Syarikat yang jujur dan telus."</p>
-                                    <p class="testimonial-author" id="testimonialAuthor9">- Puan Fatimah, 55 tahun</p>
-                                </div>
+                            <div class="testimonial-card">
+                                <img src="https://i.ibb.co/JRJPDRhN/Whats-App-Image-2025-12-16-at-15-57-17-2.jpg" alt="Testimoni Pelanggan 7" class="testimonial-img">
+                                <p class="testimonial-text" id="testimonial7">"Boleh mohon walaupun tidak bekerja. Ini sangat membantu untuk orang seperti saya."</p>
+                                <p class="testimonial-author" id="testimonialAuthor7">- Puan Rosnah, 54 tahun</p>
+                            </div>
+                            
+                            <div class="testimonial-card">
+                                <img src="https://i.ibb.co/mMncyQJ/Whats-App-Image-2025-12-16-at-15-57-17-1.jpg" alt="Testimoni Pelanggan 8" class="testimonial-img">
+                                <p class="testimonial-text" id="testimonial8">"Proses pinjaman yang mudah dan tidak rumit. Staff sangat ramah dan membantu."</p>
+                                <p class="testimonial-author" id="testimonialAuthor8">- Encik Tan, 59 tahun</p>
+                            </div>
+                            
+                            <div class="testimonial-card">
+                                <img src="https://i.ibb.co/fVrwyx2J/Whats-App-Image-2025-12-16-at-15-57-17.jpg" alt="Testimoni Pelanggan 9" class="testimonial-img">
+                                <p class="testimonial-text" id="testimonial9">"Tiada caj tersembunyi seperti yang dijanjikan. Syarikat yang jujur dan telus."</p>
+                                <p class="testimonial-author" id="testimonialAuthor9">- Puan Fatimah, 55 tahun</p>
                             </div>
                         </div>
                         
                         <!-- Slide 4 -->
                         <div class="slider-slide">
-                            <div class="testimonial-container">
-                                <div class="testimonial-card">
-                                    <img src="https://i.ibb.co/XZ6TXFDm/Whats-App-Image-2025-12-16-at-15-57-16.jpg" alt="Testimoni Pelanggan 10" class="testimonial-img">
-                                    <p class="testimonial-text" id="testimonial10">"Sangat berterima kasih kepada MILANO. Membantu saya menyelesaikan masalah hutang."</p>
-                                    <p class="testimonial-author" id="testimonialAuthor10">- Encik Ravi, 58 tahun</p>
+                            <div class="testimonial-card">
+                                <img src="https://i.ibb.co/XZ6TXFDm/Whats-App-Image-2025-12-16-at-15-57-16.jpg" alt="Testimoni Pelanggan 10" class="testimonial-img">
+                                <p class="testimonial-text" id="testimonial10">"Sangat berterima kasih kepada MILANO. Membantu saya menyelesaikan masalah hutang."</p>
+                                <p class="testimonial-author" id="testimonialAuthor10">- Encik Ravi, 58 tahun</p>
+                            </div>
+                            
+                            <div class="testimonial-card">
+                                <div style="padding: 40px 20px; text-align: center;">
+                                    <i class="fas fa-comments" style="font-size: 48px; color: var(--accent-color); margin-bottom: 15px;"></i>
+                                    <h3 style="color: var(--primary-color); margin-bottom: 15px;" id="moreTestimonialsTitle">Lebih Banyak Testimoni</h3>
+                                    <p id="moreTestimonialsText">Kami mempunyai ratusan testimoni positif daripada pelanggan yang berpuas hati.</p>
+                                    <a href="https://wa.me/60106583343" class="whatsapp-btn" target="_blank" style="margin-top: 20px; display: inline-block;">
+                                        <i class="fab fa-whatsapp"></i> <span id="viewTestimonialsText">Lihat Testimoni di WhatsApp</span>
+                                    </a>
                                 </div>
-                                
-                                <div class="testimonial-card">
-                                    <div style="padding: 40px 20px; text-align: center;">
-                                        <i class="fas fa-comments" style="font-size: 48px; color: var(--accent-color); margin-bottom: 15px;"></i>
-                                        <h3 style="color: var(--primary-color); margin-bottom: 15px;" id="moreTestimonialsTitle">Lebih Banyak Testimoni</h3>
-                                        <p id="moreTestimonialsText">Kami mempunyai ratusan testimoni positif daripada pelanggan yang berpuas hati.</p>
-                                        <a href="https://wa.me/60106583343" class="whatsapp-btn" target="_blank" style="margin-top: 20px; display: inline-block;">
-                                            <i class="fab fa-whatsapp"></i> <span id="viewTestimonialsText">Lihat Testimoni di WhatsApp</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                                <div class="testimonial-card">
-                                    <div style="padding: 40px 20px; text-align: center;">
-                                        <i class="fas fa-star" style="font-size: 48px; color: #FFD700; margin-bottom: 15px;"></i>
-                                        <h3 style="color: var(--primary-color); margin-bottom: 15px;" id="approvalRateTitle">Kadar Kelulusan 99.9%</h3>
-                                        <p id="approvalRateText">Hampir semua permohonan diluluskan dengan kadar yang tinggi.</p>
-                                        <div style="margin-top: 20px; font-size: 24px; color: var(--secondary-color); font-weight: bold;">
-                                            99.9% LULUS
-                                        </div>
+                            </div>
+                            
+                            <div class="testimonial-card">
+                                <div style="padding: 40px 20px; text-align: center;">
+                                    <i class="fas fa-star" style="font-size: 48px; color: #FFD700; margin-bottom: 15px;"></i>
+                                    <h3 style="color: var(--primary-color); margin-bottom: 15px;" id="approvalRateTitle">Kadar Kelulusan 99.9%</h3>
+                                    <p id="approvalRateText">Hampir semua permohonan diluluskan dengan kadar yang tinggi.</p>
+                                    <div style="margin-top: 20px; font-size: 24px; color: var(--secondary-color); font-weight: bold;">
+                                        99.9% LULUS
                                     </div>
                                 </div>
                             </div>
@@ -1864,7 +1961,7 @@
                 modalNote: "您可以使用浮动按钮随时更改语言",
                 
                 // Floating buttons
-                whatsappText: "WhatsApp 我们",
+                whatsappText: "WhatsApp我们",
                 languageTooltip: "更改语言",
                 phoneTooltip: "联系我们",
                 
@@ -2024,7 +2121,7 @@
                 applicationSubtitle: "எளிய ஆவணங்கள், உடனடி அங்கீகாரம், விரைவான செயல்முறை மற்றும் எளிதானது",
                 eligibilityTitle: "விண்ணப்பத் தகுதி:",
                 eligibility1: "வயது 53,54,55,58,59,60 க்கு விண்ணப்பிக்க தகுதியானவர்",
-                eligibility2: "EPF AKAUN1:30 PM 12/20/2025 1 அல்லது AKAUN EMAS சேமிப்பு உள்ளது (குறைந்தபட்ச சேமிப்பு RM30K)",
+                eligibility2: "EPF AKAUN 1 அல்லது AKAUN EMAS சேமிப்பு உள்ளது (குறைந்தபட்ச சேமிப்பு RM30K)",
                 eligibility3: "பிளாக்லிஸ்ட் / CTOSS / திவால்நிலை / AKPK தகுதியானவர்",
                 eligibility4: "வேலை செய்யும் / வேலை செய்யாதவர் தகுதியானவர்",
                 eligibility5: "முழு தீபகற்ப மலேசியா (சபா, சரவாக் தவிர)",
@@ -2123,8 +2220,10 @@
             document.getElementById('modalTitle').textContent = langData.modalTitle;
             document.getElementById('modalNote').textContent = langData.modalNote;
             
-            // Update floating buttons tooltip
+            // Update floating buttons tooltips
+            document.getElementById('whatsappTooltip').textContent = langData.whatsappText;
             document.getElementById('languageTooltip').textContent = langData.languageTooltip;
+            document.querySelector('.phone-tooltip').textContent = langData.phoneTooltip;
             
             // Update hero section
             document.getElementById('heroTitle').innerHTML = langData.heroTitle;
@@ -2233,9 +2332,6 @@
             document.getElementById('hoursSaturday').textContent = langData.hoursSaturday;
             document.getElementById('hoursSunday').textContent = langData.hoursSunday;
             document.getElementById('copyrightText').innerHTML = langData.copyrightText;
-
-	    // Update phone tooltip
- 	    document.querySelector('.phone-tooltip').textContent = langData.phoneTooltip;
         }
         
         // Language selection in modal
@@ -2566,7 +2662,7 @@
         const defaultDate = new Date(today.getFullYear() - 30, today.getMonth(), today.getDate());
         document.getElementById('tarikhLahir').value = defaultDate.toISOString().split('T')[0];
         
-        // Testimonial Slider Functionality
+        // ===== TESTIMONIAL SLIDER FUNCTIONALITY =====
         const sliderContainer = document.getElementById('sliderContainer');
         const slides = document.querySelectorAll('.slider-slide');
         const dots = document.querySelectorAll('.slider-dot');
@@ -2611,10 +2707,114 @@
         });
         
         // Auto slide every 5 seconds
-        setInterval(() => {
+        let slideInterval = setInterval(() => {
             currentSlide = (currentSlide + 1) % totalSlides;
             updateSlider();
         }, 5000);
+        
+        // Reset interval on user interaction
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlider();
+            }, 5000);
+        }
+        
+        // Add event listeners to reset interval on interaction
+        prevBtn.addEventListener('click', resetInterval);
+        nextBtn.addEventListener('click', resetInterval);
+        dots.forEach(dot => {
+            dot.addEventListener('click', resetInterval);
+        });
+        
+        // ===== MOBILE TOUCH SUPPORT FOR SLIDER =====
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        sliderContainer.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        sliderContainer.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+            resetInterval(); // Reset auto-slide on touch
+        }, false);
+        
+        function handleSwipe() {
+            const swipeThreshold = 50; // Minimum swipe distance
+            
+            if (touchEndX < touchStartX - swipeThreshold) {
+                // Swipe left - next slide
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlider();
+            }
+            
+            if (touchEndX > touchStartX + swipeThreshold) {
+                // Swipe right - previous slide
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateSlider();
+            }
+        }
+        
+        // Initialize slider on load
+        updateSlider();
+        
+        // ===== FLOATING BUTTON TOUCH SUPPORT =====
+        // For touch devices, show tooltips on touch/click
+        const floatingWhatsapp = document.querySelector('.floating-whatsapp');
+        const floatingPhone = document.querySelector('.floating-phone');
+        const floatingLanguage = document.querySelector('.floating-language');
+        
+        // Add touch/click event listeners for tooltips on mobile
+        if ('ontouchstart' in window || navigator.maxTouchPoints) {
+            // Touch device detected
+            
+            // WhatsApp button
+            floatingWhatsapp.addEventListener('touchstart', function() {
+                // Show tooltip on touch
+                this.querySelector('.whatsapp-tooltip').style.opacity = '1';
+                this.querySelector('.whatsapp-tooltip').style.visibility = 'visible';
+                this.querySelector('.whatsapp-tooltip').style.right = '75px';
+                
+                // Hide after 2 seconds
+                setTimeout(() => {
+                    this.querySelector('.whatsapp-tooltip').style.opacity = '0';
+                    this.querySelector('.whatsapp-tooltip').style.visibility = 'hidden';
+                }, 2000);
+            });
+            
+            // Phone button
+            floatingPhone.addEventListener('touchstart', function() {
+                // Show tooltip on touch
+                this.querySelector('.phone-tooltip').style.opacity = '1';
+                this.querySelector('.phone-tooltip').style.visibility = 'visible';
+                this.querySelector('.phone-tooltip').style.right = '75px';
+                
+                // Hide after 2 seconds
+                setTimeout(() => {
+                    this.querySelector('.phone-tooltip').style.opacity = '0';
+                    this.querySelector('.phone-tooltip').style.visibility = 'hidden';
+                }, 2000);
+            });
+            
+            // Language button
+            floatingLanguage.addEventListener('touchstart', function(e) {
+                // Show tooltip on touch (if dropdown is not shown)
+                if (!this.querySelector('.language-floating-dropdown').classList.contains('show')) {
+                    this.querySelector('.language-tooltip').style.opacity = '1';
+                    this.querySelector('.language-tooltip').style.visibility = 'visible';
+                    this.querySelector('.language-tooltip').style.right = '75px';
+                    
+                    // Hide after 2 seconds
+                    setTimeout(() => {
+                        this.querySelector('.language-tooltip').style.opacity = '0';
+                        this.querySelector('.language-tooltip').style.visibility = 'hidden';
+                    }, 2000);
+                }
+            });
+        }
     </script>
 </body>
 </html>
