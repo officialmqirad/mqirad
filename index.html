@@ -41,6 +41,7 @@
             background-color: var(--light-color);
             color: var(--text-color);
             line-height: 1.6;
+            padding-bottom: 80px; /* Space for floating buttons on mobile */
         }
 
         .container {
@@ -151,57 +152,128 @@
             }
         }
 
-        /* Language Switcher in Header */
-        .language-switcher {
-            position: relative;
-            margin-left: 20px;
+        /* Floating Action Buttons */
+        .floating-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-end;
         }
 
-        .current-language {
+        .floating-whatsapp {
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
             cursor: pointer;
-            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
-        .current-language:hover {
-            background-color: #e9ecef;
+        .floating-whatsapp:hover {
+            background-color: #1da851;
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
         }
 
-        .language-dropdown {
+        .floating-language {
+            background-color: #0a0a0a;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .floating-language:hover {
+            background-color: #a8f1ff;
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(52, 152, 219, 0.6);
+        }
+
+        .language-tooltip {
             position: absolute;
-            top: 100%;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .language-tooltip:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -5px;
+            transform: translateY(-50%);
+            border-left: 5px solid var(--primary-color);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+
+        .floating-language:hover .language-tooltip {
+            opacity: 1;
+            visibility: visible;
+            right: 75px;
+        }
+
+        /* Language Dropdown for Floating Button */
+        .language-floating-dropdown {
+            position: absolute;
+            bottom: 70px;
             right: 0;
             background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            padding: 10px 0;
-            min-width: 150px;
-            z-index: 1001;
+            color: #0a0a0a;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            padding: 15px 0;
+            min-width: 200px;
             display: none;
+            z-index: 1001;
         }
 
-        .language-dropdown.show {
+        .language-floating-dropdown.show {
             display: block;
             animation: fadeIn 0.3s ease;
         }
 
-        .language-option {
-            padding: 10px 20px;
+        .floating-language-option {
+            padding: 12px 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .language-option:hover {
-            background-color: #f8f9fa;
+        .floating-language-option:hover {
+            background-color: #a8f1ff;
+            color: #fafcfc;
         }
 
         /* Header Styles */
@@ -210,7 +282,7 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 999;
         }
 
         .header-container {
@@ -258,22 +330,9 @@
             color: var(--accent-color);
         }
 
-        .whatsapp-btn {
-            background-color: #25D366;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-btn:hover {
-            background-color: #1da851;
-            transform: translateY(-2px);
+        /* Mobile Header Styles */
+        .mobile-header {
+            display: none;
         }
 
         /* Hero Section */
@@ -346,7 +405,6 @@
             font-weight: 500;
         }
 
-        /* Rest of the CSS remains the same... */
         /* Main Content */
         .content-section {
             padding: 60px 0;
@@ -633,120 +691,42 @@
             font-size: 14px;
         }
 
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 36px;
-            }
-            
-            .hero-subtitle {
-                font-size: 20px;
-            }
-            
-            .highlight-box p {
-                font-size: 18px;
-            }
-            
-            .language-options {
-                grid-template-columns: 1fr;
-            }
+        /* NEW STYLES FOR PHONE INPUT WITH SEPARATE +6 BOX */
+        .phone-input-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .contact-info {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .language-switcher {
-                margin-left: 0;
-                margin-top: 10px;
-            }
-            
-            .hero h1 {
-                font-size: 32px;
-            }
-            
-            .hero-subtitle {
-                font-size: 18px;
-            }
-            
-            .application-form {
-                padding: 25px;
-            }
-            
-            .section-title {
-                font-size: 24px;
-            }
-            
-            .testimonial-container {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            .highlight-box {
-                padding: 20px;
-                margin: 30px auto;
-            }
-            
-            .language-container {
-                padding: 25px;
-            }
+        
+        .phone-prefix {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 46px;
+            background-color: #f8f9fa;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            color: var(--primary-color);
+            user-select: none;
+            flex-shrink: 0;
         }
-
-        @media (max-width: 576px) {
-            .container {
-                padding: 0 15px;
-            }
-            
-            .hero {
-                padding: 60px 0;
-                min-height: 60vh;
-            }
-            
-            .hero h1 {
-                font-size: 28px;
-            }
-            
-            .hero-subtitle {
-                font-size: 16px;
-            }
-            
-            .content-section {
-                padding: 40px 0;
-            }
-            
-            .testimonial-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .logo-img {
-                height: 40px;
-            }
-            
-            .logo-text {
-                font-size: 18px;
-            }
-            
-            .highlight-box {
-                padding: 15px;
-            }
-            
-            .highlight-box p {
-                font-size: 16px;
-            }
-            
-            .language-container {
-                padding: 20px;
-            }
-            
-            .language-container h2 {
-                font-size: 24px;
-            }
+        
+        .phone-number-input {
+            flex: 1;
+        }
+        
+        /* Remove default arrows from number input */
+        .phone-number-input input::-webkit-outer-spin-button,
+        .phone-number-input input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        .phone-number-input input[type=number] {
+            -moz-appearance: textfield;
         }
 
         /* Age highlight */
@@ -831,43 +811,244 @@
         .slider-btn:hover {
             background-color: rgba(0, 0, 0, 0.7);
         }
-        
-        /* NEW STYLES FOR PHONE INPUT WITH SEPARATE +6 BOX */
-        .phone-input-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+
+        /* ===== MOBILE RESPONSIVE STYLES ===== */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero-subtitle {
+                font-size: 20px;
+            }
+            
+            .highlight-box p {
+                font-size: 18px;
+            }
+            
+            .language-options {
+                grid-template-columns: 1fr;
+            }
         }
-        
-        .phone-prefix {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 46px;
-            background-color: #f8f9fa;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 16px;
-            color: var(--primary-color);
-            user-select: none;
-            flex-shrink: 0;
+
+        @media (max-width: 768px) {
+            /* Mobile Header */
+            .desktop-header {
+                display: none;
+            }
+            
+            .mobile-header {
+                display: block;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 0;
+            }
+            
+            .contact-info {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .hero {
+                padding: 60px 0;
+                min-height: 60vh;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+            
+            .highlight-box {
+                padding: 20px;
+                margin: 20px auto;
+            }
+            
+            .highlight-box p {
+                font-size: 16px;
+            }
+            
+            .content-section {
+                padding: 40px 0;
+            }
+            
+            .application-form {
+                padding: 25px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .testimonial-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-img {
+                height: 40px;
+            }
+            
+            .logo-text {
+                font-size: 20px;
+            }
+            
+            .language-container {
+                padding: 25px;
+            }
+            
+            .language-container h2 {
+                font-size: 24px;
+            }
+            
+            /* Floating Buttons for Mobile */
+            .floating-buttons {
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .floating-whatsapp,
+            .floating-language {
+                width: 55px;
+                height: 55px;
+                font-size: 24px;
+            }
+            
+            .language-floating-dropdown {
+                min-width: 180px;
+            }
         }
-        
-        .phone-number-input {
-            flex: 1;
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero h1 {
+                font-size: 24px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .content-section {
+                padding: 30px 0;
+            }
+            
+            .testimonial-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-img {
+                height: 35px;
+            }
+            
+            .logo-text {
+                font-size: 18px;
+            }
+            
+            .info-box {
+                padding: 20px;
+            }
+            
+            .highlight-box {
+                padding: 15px;
+            }
+            
+            .highlight-box p {
+                font-size: 15px;
+            }
+            
+            .language-container {
+                padding: 20px;
+                width: 95%;
+            }
+            
+            .language-container h2 {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+            
+            .language-options {
+                gap: 15px;
+            }
+            
+            .language-btn {
+                padding: 15px;
+            }
+            
+            /* Floating Buttons for Small Mobile */
+            .floating-buttons {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .floating-whatsapp,
+            .floating-language {
+                width: 50px;
+                height: 50px;
+                font-size: 22px;
+            }
+            
+            .language-floating-dropdown {
+                min-width: 160px;
+                bottom: 60px;
+            }
+            
+            .floating-language-option {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .language-tooltip {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
         }
-        
-        /* Remove default arrows from number input */
-        .phone-number-input input::-webkit-outer-spin-button,
-        .phone-number-input input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
+
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 22px;
+            }
+            
+            .hero-subtitle {
+                font-size: 15px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+            
+            .floating-buttons {
+                bottom: 8px;
+                right: 8px;
+            }
         }
-        
-        .phone-number-input input[type=number] {
-            -moz-appearance: textfield;
+
+        /* Touch-friendly improvements for mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .submit-btn,
+            .floating-whatsapp,
+            .floating-language {
+                min-height: 44px; /* Minimum touch target size */
+            }
+            
+            .form-control {
+                font-size: 16px; /* Prevents iOS zoom on input focus */
+            }
+            
+            .slider-btn {
+                width: 44px;
+                height: 44px;
+            }
         }
     </style>
 </head>
@@ -905,47 +1086,52 @@
                 <img src="https://i.ibb.co/PZXkZPFw/Gemini-Generated-Image-p5er5xp5er5xp5er.png" alt="Gemini-Generated-Image-p5er5xp5er5xp5er" class="logo-img">
                 <div class="logo-text">MILANO<span></div>
             </div>
-            <div class="contact-info">
+            <div class="contact-info desktop-header">
                 <div class="contact-item">
                     <i class="fas fa-phone contact-icon"></i>
                     <span>+6010-658 3343</span>
                 </div>
+            </div>
+            <div class="contact-info mobile-header">
                 <div class="contact-item">
-                    <i class="fas fa-envelope contact-icon"></i>
-                    <span>officialmqirad@gmail.com</span>
-                </div>
-                <a href="https://wa.me/60106583343" class="whatsapp-btn" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                    <span id="whatsappText">WhatsApp Kami</span>
-                </a>
-                <div class="language-switcher">
-                    <div class="current-language" id="currentLanguage">
-                        <span class="language-flag" id="currentFlag">🇲🇾</span>
-                        <span id="currentLangText">BM</span>
-                        <i class="fas fa-chevron-down" style="font-size: 12px;"></i>
-                    </div>
-                    <div class="language-dropdown" id="languageDropdown">
-                        <div class="language-option" data-lang="en">
-                            <span class="language-flag">🇺🇸</span>
-                            <span>English</span>
-                        </div>
-                        <div class="language-option" data-lang="ms">
-                            <span class="language-flag">🇲🇾</span>
-                            <span>Bahasa Melayu</span>
-                        </div>
-                        <div class="language-option" data-lang="zh">
-                            <span class="language-flag">🇨🇳</span>
-                            <span>中文</span>
-                        </div>
-                        <div class="language-option" data-lang="ta">
-                            <span class="language-flag">🇮🇳</span>
-                            <span>தமிழ்</span>
-                        </div>
-                    </div>
+                    <i class="fas fa-phone contact-icon"></i>
+                    <span>+6010-658 3343</span>
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons">
+        <!-- WhatsApp Button -->
+        <a href="https://wa.me/60106583343" class="floating-whatsapp" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        
+        <!-- Language Button -->
+        <div class="floating-language" id="floatingLanguageBtn">
+            <i class="fas fa-globe"></i>
+            <span class="language-tooltip" id="languageTooltip">Change Language</span>
+            <div class="language-floating-dropdown" id="floatingLanguageDropdown">
+                <div class="floating-language-option" data-lang="en">
+                    <span class="language-flag">🇺🇸</span>
+                    <span>English</span>
+                </div>
+                <div class="floating-language-option" data-lang="ms">
+                    <span class="language-flag">🇲🇾</span>
+                    <span>Bahasa Melayu</span>
+                </div>
+                <div class="floating-language-option" data-lang="zh">
+                    <span class="language-flag">🇨🇳</span>
+                    <span>中文</span>
+                </div>
+                <div class="floating-language-option" data-lang="ta">
+                    <span class="language-flag">🇮🇳</span>
+                    <span>தமிழ்</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1319,7 +1505,6 @@
                     <h3 id="contactTitle">Hubungi Kami</h3>
                     <p><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> <span id="addressText">13A, Jalan Bandar Rawang 2, Pusat Bandar Rawang, 48000 Rawang, Selangor</span></p>
                     <p><i class="fas fa-phone" style="margin-right: 10px;"></i> +6010-658 3343</p>
-                    <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> officialmqirad@gmail.com</p>
                 </div>
                 
                 <div class="footer-section">
@@ -1342,11 +1527,11 @@
             en: {
                 // Modal
                 modalTitle: "Please Select Your Language",
-                modalNote: "You can change language anytime using the switcher in header",
+                modalNote: "You can change language anytime using the floating button",
                 
-                // Header
+                // Floating buttons
                 whatsappText: "WhatsApp Us",
-                currentLangText: "EN",
+                languageTooltip: "Change Language",
                 
                 // Hero
                 heroTitle: "PROFESSIONAL FINANCIAL <span>CONSULTATION</span>",
@@ -1459,11 +1644,11 @@
             ms: {
                 // Modal
                 modalTitle: "Sila Pilih Bahasa Anda",
-                modalNote: "Anda boleh menukar bahasa bila-bila masa menggunakan pemilih bahasa di header",
+                modalNote: "Anda boleh menukar bahasa bila-bila masa menggunakan butang terapung",
                 
-                // Header
+                // Floating buttons
                 whatsappText: "WhatsApp Kami",
-                currentLangText: "BM",
+                languageTooltip: "Tukar Bahasa",
                 
                 // Hero
                 heroTitle: "PERUNDINGAN KEWANGAN <span>PROFESIONAL</span>",
@@ -1576,11 +1761,11 @@
             zh: {
                 // Modal
                 modalTitle: "请选择您的语言",
-                modalNote: "您可以在标题栏随时更改语言",
+                modalNote: "您可以使用浮动按钮随时更改语言",
                 
-                // Header
+                // Floating buttons
                 whatsappText: "WhatsApp 我们",
-                currentLangText: "中文",
+                languageTooltip: "更改语言",
                 
                 // Hero
                 heroTitle: "专业财务<span>咨询</span>",
@@ -1693,11 +1878,11 @@
             ta: {
                 // Modal
                 modalTitle: "தயவுசெய்து உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்",
-                modalNote: "தலைப்புப் பட்டையில் உள்ள மொழி மாற்றியைப் பயன்படுத்தி எப்போதும் மொழியை மாற்றலாம்",
+                modalNote: "மிதக்கும் பொத்தானைப் பயன்படுத்தி எப்போதும் மொழியை மாற்றலாம்",
                 
-                // Header
+                // Floating buttons
                 whatsappText: "WhatsApp எங்களை",
-                currentLangText: "தமிழ்",
+                languageTooltip: "மொழியை மாற்றவும்",
                 
                 // Hero
                 heroTitle: "தொழில்முறை நிதி <span>ஆலோசனை</span>",
@@ -1836,18 +2021,8 @@
             document.getElementById('modalTitle').textContent = langData.modalTitle;
             document.getElementById('modalNote').textContent = langData.modalNote;
             
-            // Update header
-            document.getElementById('whatsappText').textContent = langData.whatsappText;
-            document.getElementById('currentLangText').textContent = langData.currentLangText;
-            
-            // Update current language flag
-            const flagMap = {
-                'en': '🇺🇸',
-                'ms': '🇲🇾',
-                'zh': '🇨🇳',
-                'ta': '🇮🇳'
-            };
-            document.getElementById('currentFlag').textContent = flagMap[currentLanguage];
+            // Update floating buttons tooltip
+            document.getElementById('languageTooltip').textContent = langData.languageTooltip;
             
             // Update hero section
             document.getElementById('heroTitle').innerHTML = langData.heroTitle;
@@ -1969,26 +2144,30 @@
             });
         });
         
-        // Language switcher in header
-        document.getElementById('currentLanguage').addEventListener('click', function() {
-            document.getElementById('languageDropdown').classList.toggle('show');
+        // Floating language button functionality
+        const floatingLanguageBtn = document.getElementById('floatingLanguageBtn');
+        const floatingLanguageDropdown = document.getElementById('floatingLanguageDropdown');
+        
+        floatingLanguageBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            floatingLanguageDropdown.classList.toggle('show');
         });
         
-        // Close language dropdown when clicking outside
+        // Close floating language dropdown when clicking outside
         document.addEventListener('click', function(event) {
-            if (!event.target.closest('.language-switcher')) {
-                document.getElementById('languageDropdown').classList.remove('show');
+            if (!event.target.closest('.floating-language')) {
+                floatingLanguageDropdown.classList.remove('show');
             }
         });
         
-        // Language selection in dropdown
-        document.querySelectorAll('.language-option').forEach(option => {
+        // Language selection in floating dropdown
+        document.querySelectorAll('.floating-language-option').forEach(option => {
             option.addEventListener('click', function() {
                 const selectedLang = this.getAttribute('data-lang');
                 currentLanguage = selectedLang;
                 localStorage.setItem('selectedLanguage', selectedLang);
                 updateLanguage();
-                document.getElementById('languageDropdown').classList.remove('show');
+                floatingLanguageDropdown.classList.remove('show');
             });
         });
         
